@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Cliente;
+use App\Servicio;
 
-class PagosController extends Controller
+class ClientesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +26,7 @@ class PagosController extends Controller
      */
     public function create()
     {
-        //$servicios = Servicio::all();
-        //$empleados = Empleado::all();
-
-        //return view('clientes.pagos.create',compact('servicios','empleados'));
-        return view('clientes.pagos.create');
-
+        //
     }
 
     /**
@@ -39,7 +37,7 @@ class PagosController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -85,5 +83,32 @@ class PagosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function asignarservicio()
+    {
+        $clientes = DB::table('clientes')->pluck('nombres', 'id');
+        $servicios = DB::table('servicios')->pluck('nombre', 'id');
+
+
+        return view ('admin.clientes.asignarservicio',compact('clientes','servicios'));;
+
+
+        //traiga un formulario para asignarle un servicio
+        //return view('admin.clientes.asignarservicio');
+
+    }
+
+    public function stores(Request $request)
+    {
+        $validatedData = $request->validate([
+            'cliente_id' => 'required',
+            'servicio_id' => 'required',
+
+        ]);
+
+        $cliente_servicio=new Empleado($request->all());
+        $empleado->save();
+        dd('Empleado creado exitosamente!!!');
     }
 }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Servicio;
 
-class PagosController extends Controller
+class ServiciosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +24,7 @@ class PagosController extends Controller
      */
     public function create()
     {
-        //$servicios = Servicio::all();
-        //$empleados = Empleado::all();
-
-        //return view('clientes.pagos.create',compact('servicios','empleados'));
-        return view('clientes.pagos.create');
-
+        return view('admin.servicios.create');
     }
 
     /**
@@ -39,7 +35,15 @@ class PagosController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'nombre' => 'required',
 
+        ]);
+
+        //return $request->all();
+        $servicio=new Servicio;
+        $servicio->nombre=$request->nombre;
+        $servicio->save();
     }
 
     /**

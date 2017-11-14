@@ -18,7 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservicio');
 
+Route::group(['prefix' =>'admin'], function (){
+
+    Route::resource('servicios','ServiciosController');
+    Route::resource('clientes','ClientesController');
+
+});
 
 
 Route::group(['prefix' =>'clientes'], function (){

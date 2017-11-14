@@ -5,7 +5,7 @@
     <h2>Crear pago</h2>
     {!! Form::open(['route' => 'pagos.store', 'method' => 'post']) !!}
 
-    <div class="form-group fondo">
+    <div class="form-group">
         {!!Form::label('valor_pago', 'Valor a pagar');!!}
         {!!Form::text('valor_pago',null,['class' => 'form-control'], $attributes=['required']) ; !!}
     </div>
