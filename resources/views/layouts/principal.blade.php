@@ -8,6 +8,7 @@
 
     <link href="{{asset('/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('/css/layout.css')}}" rel="stylesheet">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -32,7 +33,7 @@
 
 
 <!-- Scripts -->
-<script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
 </body>
 </html>

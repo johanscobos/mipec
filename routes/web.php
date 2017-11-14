@@ -27,8 +27,14 @@ Route::group(['prefix' =>'admin'], function (){
 
 });
 
+Route::group(['prefix' => 'admin'], function(){
+        Route::resource('administrador', 'adminController');});
+
+
+
 
 Route::group(['prefix' =>'clientes'], function (){
 
     Route::resource('pagos','PagosController');
+
 });
