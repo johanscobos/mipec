@@ -19,7 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::group(['prefix' => 'admin'], function(){
-        Route::resource('administrador', 'adminController');
+        Route::resource('administrador', 'adminController');});
+
+
+
+
+Route::group(['prefix' =>'clientes'], function (){
+
+    Route::resource('pagos','PagosController');
 
 });

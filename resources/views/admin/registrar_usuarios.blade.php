@@ -1,5 +1,8 @@
+@extends('layouts.principal')
 
-    {!! Form::open(['route' => 'administrador.store', 'method' => 'post']) !!}
+
+@section('content')
+{!! Form::open(['route' => 'administrador.store', 'method' => 'post']) !!}
 
     {!!Form::label('Nombre de usuario', 'Username');!!}
     {!!Form::text('username',null, $attributes=['required']);  !!}
@@ -18,3 +21,19 @@
     <br>
     {!! Form::submit('Registrar'); !!}
     {!! Form::close() !!}
+    <div id="test">algo</div>
+
+
+
+@endsection
+
+@section('script')
+
+    <script type="text/javascript">
+
+            $("#tipo_user").on("change", function(){
+                alert("hola");
+            });
+
+    </script>
+@endsection
