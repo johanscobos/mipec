@@ -21,7 +21,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4" style="border:1px solid #0b2e13">
-            @include('layouts.partials.sidebar-menu')
+
+            @php
+
+            @endphp
+
+            @if(Auth::user()->tipo_user=='0')
+            @include('layouts.partials.sidebar-menu-admin')
+                @else
+                @include('layouts.partials.sidebar-menu-clientes')
+            @endif
         </div>
         <div class="col-md-8" style="border:1px solid #0b2e13">
             @yield('content')

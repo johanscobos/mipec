@@ -15,20 +15,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/prueba', function () {
+    return view('/clientes/servicios/serviciosporpagar');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservicio');
+Route::get('/admin/clientes/servicios', 'ClientesController@servicios');
+Route::get('/admin/clientes/serviciosporpagar', 'ClientesController@serviciosporpagar');
+Route::post('/pruebas', 'ClientesController@formupago')->name('clientes.formupago');
+
 
 Route::group(['prefix' =>'admin'], function (){
 
     Route::resource('servicios','ServiciosController');
     Route::resource('clientes','ClientesController');
+    Route::resource('administrador', 'adminController');
 
 });
 
-Route::group(['prefix' => 'admin'], function(){
-        Route::resource('administrador', 'adminController');});
+
 
 
 
@@ -36,5 +44,7 @@ Route::group(['prefix' => 'admin'], function(){
 Route::group(['prefix' =>'clientes'], function (){
 
     Route::resource('pagos','PagosController');
+
+
 
 });

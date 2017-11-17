@@ -31,9 +31,8 @@
 
     <script type="text/javascript">
 
-            $("#tipo_user").on("change", function(){
-                alert("hola");
-            });
+        var x = document.getElementById("tipo_user");
+        if(x == )
 
     </script>
 @endsection

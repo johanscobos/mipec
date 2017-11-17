@@ -27,7 +27,7 @@ class Cliente extends Model
 
     public function servicios()
     {
-        return $this->belongsToMany('App\Servicio');
+        return $this->belongsToMany('App\Servicio')->withPivot('valor_pagar', 'estado_pago','estado_servicio','descripcion_variable');
     }
 
     public function pais()

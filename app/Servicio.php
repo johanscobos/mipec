@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Servicio extends Model
 {
     protected $fillable = [
-        'nombre'
+        'nombre','descripcion'
     ];
 
     public function pago()
@@ -17,6 +17,6 @@ class Servicio extends Model
 
     public function clientes()
     {
-        return $this->belongsToMany('App\Cliente');
+        return $this->belongsToMany('App\Cliente')->withPivot('valor_pagar', 'estado_pago','estado_servicio','descripcion_variable');
     }
 }
