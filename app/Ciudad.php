@@ -9,6 +9,7 @@ class Ciudad extends Model
     protected $fillable = [
         'nombre','estado','pais_codigo'
     ];
+    protected $table = 'ciudades';
 
     public function pais()
     {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pais;
+use App\Ciudad;
 
 class adminController extends Controller
 {
@@ -22,8 +24,10 @@ class adminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
     {
-        return view('admin.registrar_usuarios');
+        $paises= Pais::all();
+        return view('admin.registrar_usuarios')->with('paises',$paises);
     }
 
     /**

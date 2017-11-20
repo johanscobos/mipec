@@ -11,15 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
     @php
         $user = Auth::user();
-
-    @endphp
-
-    @php
-
+        $email = Auth::user()->email;
         $user_id = Auth::user()->id;
-        $cliente = Cliente::find($user_id);
-        $descripcion=$cliente->descripcion;
-    //dd($user_id);
+        $cliente = Cliente::find(3);
+    //dd($user);
     @endphp
 
 
@@ -34,33 +29,41 @@ use Illuminate\Support\Facades\Auth;
         </tr>
         </thead>
         <tbody>
-        @foreach($cliente->servicios as $servicio)
+        @foreach($cliente->servicios as $cli)
 
         <tr>
             <td>
                 @php
-               echo $servicio->pivot->servicio_id;
+               echo $cli->pivot->servicio_id;
                 @endphp
             </td>
 
             <td>
                 @php
-                    echo $servicio->pivot->valor_pagar;
+                    echo $cli->pivot->valor_pagar;
                 @endphp
             </td>
             <td>
                 @php
-                    echo $servicio->descripcion;
+                    echo $cli->descripcion;
                 @endphp
             </td>
             <td>
                 <!-- se enlaza con el formulario de pago-, debe ser por POST-->
                 {!! Form::open(['route' => 'clientes.formupago', 'method' => 'post']) !!}
 
-                {!! Form::hidden('servicio_id',$servicio->pivot->servicio_id) !!}
-                {!! Form::hidden('valor_pagar',$servicio->pivot->valor_pagar) !!}
-                {!! Form::hidden('descripcion_variable',$servicio->pivot->descripcion_variable) !!}
-                {!! Form::hidden('descripcion',$servicio->descripcion) !!}
+                {!! Form::hidden('servicio_id',$cli->pivot->servicio_id) !!}
+                {!! Form::hidden('amount',$cli->pivot->valor_pagar) !!}
+                {!! Form::hidden('descripcion_variable',$cli->pivot->descripcion_variable) !!}
+                {!! Form::hidden('description',$cli->descripcion) !!}
+                {!! Form::hidden('currency',$cli->descripcion) !!}
+                {!! Form::hidden('buyerFullName',$cli->descripcion) !!}
+                {!! Form::hidden('buyerEmail',$email) !!}
+                {!! Form::hidden('shippingAddress',$cli->direccion) !!}
+                {!! Form::hidden('shippingCity',$cli->descripcion) !!}
+                {!! Form::hidden('shippingCity',$cli->descripcion) !!}
+                {!! Form::hidden('shippingCountry',$cli->descripcion) !!}
+                {!! Form::hidden('telephone',$cli->descripcion) !!}
 
                 {!! Form::submit('Pagar',['class' => 'btn btn-danger']); !!}
                 {!! Form::close() !!}
