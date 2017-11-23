@@ -64,14 +64,22 @@ use Illuminate\Support\Facades\Auth;
                 {!! Form::hidden('shippingCity',$cli->descripcion) !!}
                 {!! Form::hidden('shippingCountry',$cli->descripcion) !!}
                 {!! Form::hidden('telephone',$cli->descripcion) !!}
+                {!! Form::hidden('signature','7ee7cf808ce6a39b17481c54f2c57acc') ; !!}
+                {!! Form::hidden('referenceCode','AAA1254578') ; !!}
+                {!! Form::hidden('merchantId','688911') ; !!}
+                {!! Form::hidden('accountId','691796') ; !!}
+                {!! Form::hidden('buyerFullName','Albert Cobos Palma') ; !!}
+                {!! Form::hidden('tax'); !!}
+                {!! Form::hidden('taxReturnBase','0') ; !!}
+                {!! Form::hidden('currency') ; !!}
+                {!! Form::hidden('shippingCity','Pereira') ; !!}
+                {!! Form::hidden('shippingCountry','57') ; !!}
+                {!! Form::hidden('telephone','3204190555') ; !!}
 
                 {!! Form::submit('Pagar',['class' => 'btn btn-danger']); !!}
                 {!! Form::close() !!}
 
-
             </td>
-
-
         </tr>
        @endforeach
         </tbody>

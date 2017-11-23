@@ -145,39 +145,29 @@ class ClientesController extends Controller
         return view('clientes.pagos.formupago',compact('vpagar'));
 
     }
-    public function serviciosporpagar(Request $request){
 
-        //recojo el id del usuario autenticado
-        $user_id = Auth::user()->id;
+    public function gestionarcliente(Request $request)
+    {
 
-        //con el id_del usuario, busco el id del cliente asociado a este
-        $cliente = Cliente::find($user_id);
+        $clservicios = DB::table('cliente_servicio')->where('estado_pago', '1')->get();
 
-        //declaro el array para guardar los id asociados al cliente
-        $datos=array();
-        //busco los servicios asociados al id del cliente
-        foreach ($cliente->servicios as $servicio) {
-            $datos[]=$servicio->pivot->valor_pagar;
+        return view('admin.clientes.gestionarcliente', ['clservicios' => $clservicios]);
 
-         }
+    }
 
+    public function activarcliente(Request $request)
+    {
 
-        //los envío a la vista
-       //return view('clientes.servicios.serviciosporpagar',compact('datos'));
+        $cliente_id=$request->cliente_id;
+        $rc=$request->rc;
+        $accion=$request->accion;
 
-        //imprimo los valores
-        dd($datos);
+        DB::table('cliente_servicio')
+            ->where([
+                ['cliente_id', '=', $cliente_id],
+                ['referenceCode', '=', $rc],
+                ])
+            ->update(['estado_servicio' => $accion]);
+    }
 
-
-
-        //buscar en la tabla clientes_servicios los registros en donde cliente_id sea = a $cliente y mostrar el id del servicio y luego buscar en la tabla servicios el nombre del servicio. luego
-
-
-
-        /*
-        $vpagar=$cliente->pivot->valor_pagar;
-
-        return view('clientes.servicios.create',compact('vpagar'));
-        */
-}
 }

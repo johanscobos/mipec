@@ -26,6 +26,8 @@ Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservici
 Route::get('/admin/clientes/servicios', 'ClientesController@servicios');
 Route::get('/admin/clientes/serviciosporpagar', 'ClientesController@serviciosporpagar');
 Route::post('/pruebas', 'ClientesController@formupago')->name('clientes.formupago');
+Route::get('/admin/clientes/gestionarcliente', 'ClientesController@gestionarcliente')->name('clientes.gestionarcliente');
+Route::post('/admin/clientes/activarcliente', 'ClientesController@activarcliente')->name('clientes.activarcliente');
 
 
 Route::group(['prefix' =>'admin'], function (){
