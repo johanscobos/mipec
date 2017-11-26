@@ -79,6 +79,7 @@ use Illuminate\Support\Facades\Auth;
                 {!! Form::submit('Pagar',['class' => 'btn btn-danger']); !!}
                 {!! Form::close() !!}
 
+
             </td>
         </tr>
        @endforeach

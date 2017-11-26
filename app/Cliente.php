@@ -40,4 +40,16 @@ class Cliente extends Model
     {
         return $this->belongsTo('App\Ciudad');
     }
+
+    public function scopeBuscar($query, $cedula){
+
+        //$roles = User::find($name)->roles;
+
+       /* return $query->where('nombres', 'LIKE', '%' .$dato. '%')
+            ->orWhere->('apellido1', 'LIKE', '%' .$dato. '%')
+            ->orWhere->('cedula', '$dato');*/
+
+       $query->where('cedula','$cedula');
+
+    }
 }

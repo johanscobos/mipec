@@ -109,6 +109,7 @@ class ClientesController extends Controller
         //
     }
 
+    //Método que talllllllllllllllllllllllllllllllllllllll
     public function asignarservicio()
     {
         $clientes = DB::table('clientes')->pluck('nombres', 'id');
@@ -123,6 +124,7 @@ class ClientesController extends Controller
 
     }
 
+    //Método que talllllllllllllllllllllllllllllllllllllll
     public function stores(Request $request)
     {
         $validatedData = $request->validate([
@@ -136,28 +138,45 @@ class ClientesController extends Controller
         dd('Empleado creado exitosamente!!!');
     }
 
-    public function formupago(Request $request)
+
+    //Método que talllllllllllllllllllllllllllllllllllllll
+    public function pagospendientes(Request $request)
     {
+        $user_id = Auth::id();
+        $cliente = Cliente::where('user_id', $user_id)->first();
+        $cliente_id=$cliente->id;
 
-        $vpagar=$request->valor_pagar;
-
-
-        return view('clientes.pagos.formupago',compact('vpagar'));
-
+        $clservicios = DB::table('cliente_servicio')->where([
+            ['cliente_id', '=', $cliente_id],
+            ['estado_pago', '=', '0'],
+        ])->get();
+        return view('clientes.pagos.pagospendientes', ['pagospendientes' => $clservicios]);
     }
 
-    public function gestionarcliente(Request $request)
+    //Método que lista los servicios que un cliente tiene asignados y un botón de la vista, lo activa o inactiva en el método "activar_inactivar_servicio"
+    public function gestionar_servicios(Request $request)
     {
+        //$cliente_id=$request->get('id');
 
-        $clservicios = DB::table('cliente_servicio')->where('estado_pago', '1')->get();
+//ir al modelo clientes y buscar el nombre que coincida y luego traer el id para pasaselo
 
-        return view('admin.clientes.gestionarcliente', ['clservicios' => $clservicios]);
+        $cliente_id=3;
+       // $clservicios = DB::table('cliente_servicio')->where('cliente_id', $cliente_id)->get();
 
+        $clservicios = DB::table('cliente_servicio')->where('cliente_id', $cliente_id)->get();
+
+
+
+        //$clientess=DB::table('cliente_servicio')->where('name', 'LIKE', "%name%");
+
+        //$clservicios = DB::table('cliente_servicio')->where('estado_pago', '1')->get();
+        return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
     }
 
-    public function activarcliente(Request $request)
-    {
 
+    //Método que activa o inactiva un servicio de un cliente
+    public function activar_inactivar_servicio(Request $request)
+    {
         $cliente_id=$request->cliente_id;
         $rc=$request->rc;
         $accion=$request->accion;
@@ -168,6 +187,7 @@ class ClientesController extends Controller
                 ['referenceCode', '=', $rc],
                 ])
             ->update(['estado_servicio' => $accion]);
+        return redirect('/admin/clientes/gestionar_servicios');
     }
 
 }
