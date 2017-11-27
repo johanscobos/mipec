@@ -5,7 +5,7 @@
 @endphp
 
 @extends('layouts.principal')
-@section('title','Clientes - Gestionar Servicios')
+@section('title','Clientes - Subir Planilla')
 @section('content')
 
     <h1>Gestionar Servicios de Cliente</h1>
