@@ -31,11 +31,8 @@
         {!!Form::label('nombres', 'Nombre del empleado :');!!}
         {!!Form::text('nombres',null, $attributes=['required']);  !!}
         <br>
-        {!!Form::label('apellido1', 'Primer apellido :');!!}
-        {!!Form::text('apellido1',null, $attributes=['required']);  !!}
-        <br>
-        {!!Form::label('apellido2', 'Segundo apellido :');!!}
-        {!!Form::text('apellido2',null, $attributes=['required']);  !!}
+        {!!Form::label('apellidos', 'Apellidos :');!!}
+        {!!Form::text('apellidos',null, $attributes=['required']);  !!}
         <br>
         {!!Form::label('telefono', 'Número de telefono :');!!}
         {!!Form::text('telefono',null, $attributes=['required']);  !!}
@@ -46,10 +43,21 @@
         {!!Form::label('direccion', 'Dirección :');!!}
         {!!Form::text('direccion',null, $attributes=['required']);  !!}
         <br>
-        @foreach($paises as $pais)
+        
         {!!Form::label('paises', 'Pais: ');!!}
-            {!!Form::select('paises',[0=>'seleccione el pais',$pais->id =>$pais->nombre],null, $attributes=['required']);  !!}
+            <select name="paises">
+        @foreach($paises  as $pais)
+            <option value= {{$pais->codigo}}>{{$pais->nombre }}</option>
         @endforeach
+        </select>
+        <br>
+        
+        {!!Form::label('ciudades', 'Ciudad: ');!!}
+        <select name="ciudades">
+        @foreach($ciudades as $ciudad)
+            <option value= {{$ciudad->id}}>{{$ciudad->nombre }}</option>
+        @endforeach
+        </select>
 
     </div>
 

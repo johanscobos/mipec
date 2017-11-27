@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pais;
 use App\Ciudad;
+use App\Empleado;
+use App\Cliente;
 
 class adminController extends Controller
 {
@@ -27,7 +29,8 @@ class adminController extends Controller
 
     {
         $paises= Pais::all();
-        return view('admin.registrar_usuarios')->with('paises',$paises);
+        $ciudades= Ciudad::all();
+        return view('admin.registrar_usuarios', compact('ciudades','paises'));
     }
 
     /**
@@ -38,11 +41,13 @@ class adminController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        if($request->tipo_user == 'cliente')
+        
+        $empleado = new Empleado
+        dd($request);
+        /*if($request->tipo_user == 'cliente')
             dd('hola');
         else
-            dd('nada');
+            dd('nada');*/
     }
 
     /**
