@@ -24,6 +24,7 @@ Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservici
 Route::get('/admin/clientes/servicios', 'ClientesController@servicios');
 
 Route::get('/admin/clientes/gestionar_servicios', 'ClientesController@gestionar_servicios')->name('clientes.gestionar_servicios');
+Route::get('/admin/clientes/subir_planilla', 'ClientesController@subir_planilla')->name('clientes.subir_planilla');
 Route::post('/admin/clientes/activar_inactivar_servicio', 'ClientesController@activar_inactivar_servicio')->name('clientes.activar_inactivar_servicio');
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');
 

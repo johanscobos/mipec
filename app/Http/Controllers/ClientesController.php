@@ -156,23 +156,37 @@ class ClientesController extends Controller
     //Método que lista los servicios que un cliente tiene asignados y un botón de la vista, lo activa o inactiva en el método "activar_inactivar_servicio"
     public function gestionar_servicios(Request $request)
     {
-        //$cliente_id=$request->get('id');
+        //ir al modelo clientes y buscar el nombre que coincida y luego traer el id para pasarselo
+        $cedula = $request->cedula;
 
-//ir al modelo clientes y buscar el nombre que coincida y luego traer el id para pasaselo
+        if (!empty($cedula))
+        {
+            $cliente = Cliente::where('cedula', $cedula)->first();
 
-        $cliente_id=3;
-       // $clservicios = DB::table('cliente_servicio')->where('cliente_id', $cliente_id)->get();
+            if($cliente!=NULL)
+            {
+                $cliente_id = $cliente->id;
+                $clservicios = DB::table('cliente_servicio')->where([
+                    ['cliente_id', '=', $cliente_id],
+                    ['estado_pago', '=', 1],
+                ])->get();
+                return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
+            }
+            else{
+                //$clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+                //return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
 
-        $clservicios = DB::table('cliente_servicio')->where('cliente_id', $cliente_id)->get();
+                // $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+                return view('admin.clientes.gestionar_servicios');
+            }
+        }
 
-
-
-        //$clientess=DB::table('cliente_servicio')->where('name', 'LIKE', "%name%");
-
-        //$clservicios = DB::table('cliente_servicio')->where('estado_pago', '1')->get();
-        return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
+        else{
+             //si no esta definida la variable que muestre todos
+            $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+            return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
     }
-
+    }
 
     //Método que activa o inactiva un servicio de un cliente
     public function activar_inactivar_servicio(Request $request)
@@ -181,6 +195,8 @@ class ClientesController extends Controller
         $rc=$request->rc;
         $accion=$request->accion;
 
+        //dd($cliente_id);
+
         DB::table('cliente_servicio')
             ->where([
                 ['cliente_id', '=', $cliente_id],
@@ -188,6 +204,20 @@ class ClientesController extends Controller
                 ])
             ->update(['estado_servicio' => $accion]);
         return redirect('/admin/clientes/gestionar_servicios');
+    }
+
+
+    public function subir_planilla(Request $request)
+    {
+
+        /*$clservicios = DB::table('cliente_servicio')->where([
+            ['cliente_id', '=', $cliente_id],
+            ['servicio_id', '=', 1],
+        ])->get();*/
+
+        $clservicios = DB::table('cliente_servicio')->where('servicio_id', 1)->get();
+        return view('admin.clientes.subir_planilla', ['clservicios' => $clservicios]);
+
     }
 
 }
