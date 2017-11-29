@@ -7,6 +7,7 @@ use App\Pais;
 use App\Ciudad;
 use App\Empleado;
 use App\Cliente;
+use App\User;
 
 class adminController extends Controller
 {
@@ -30,7 +31,8 @@ class adminController extends Controller
     {
         $paises= Pais::all();
         $ciudades= Ciudad::all();
-        return view('admin.registrar_usuarios', compact('ciudades','paises'));
+        $empleados= Empleado::all();
+        return view('admin.registrar_usuarios', compact('ciudades','paises','empleados'));
     }
 
     /**
@@ -42,8 +44,53 @@ class adminController extends Controller
     public function store(Request $request)
     {
         
-        $empleado = new Empleado
-        dd($request);
+        if($request->tipo_user == 'empleado')
+         {   
+            $usuario = new User();
+            $usuario->username= $request->username;
+            $usuario->email= $request->email;
+            $usuario->tipo_user= $request->tipo_user;
+            $usuario->password= $request->password;
+
+            $usuario->save();
+
+            $empleado= new Empleado();
+            $empleado->cedula=$request->cedula;
+            $empleado->nombres=$request->nombres;
+            $empleado->apellidos=$request->apellidos;
+            $empleado->telefono=$request->telefono;
+            $empleado->celular=$request->celular;
+            $empleado->direccion=$request->direccion;
+            $empleado->paises=$request->paises;
+            $empleado->ciudades=$request->ciudades;
+
+            $empleado->save();
+        }
+
+         if($request->tipo_user == 'cliente')
+         {   
+            $usuario = new User();
+            $usuario->username= $request->username;
+            $usuario->email= $request->email;
+            $usuario->tipo_user= $request->tipo_user;
+            $usuario->password= $request->password;
+
+            $usuario->save();
+
+            $cliente= new Cliente();
+            $cliente->cedula=$request->cedula;
+            $cliente->nombres=$request->nombres;
+            $cliente->apellidos=$request->apellidos;
+            $cliente->telefono=$request->telefono;
+            $cliente->celular=$request->celular;
+            $cliente->direccion=$request->direccion;
+            $cliente->paises=$request->paises;
+            $cliente->ciudades=$request->ciudades;
+            $cliete->empleados=$request->empleados;
+
+            $cliente->save();
+        }
+       // dd($request);
         /*if($request->tipo_user == 'cliente')
             dd('hola');
         else
