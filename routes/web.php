@@ -36,7 +36,8 @@ Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendiente
     return view('admin.clientes.gestionar_servicios');
 });*/
 
-
+Route::get('/admin/administrador/clienteEmpleado', 'adminController@clienteEmpleado');
+Route::post('/admin/administrador/storageClienteEmpleado', 'adminController@storageClienteEmpleado')->name('clienteEmpleado');
 
 Route::group(['prefix' =>'admin'], function (){
 
