@@ -2,7 +2,7 @@
 
 
 @section('content')
-{!! Form::open(['route' => 'administrador.store', 'method' => 'post']) !!}
+{!! Form::open(['route' => 'administrador.store', 'method' => 'post', 'novalidate' => 'novalidate']) !!}
 
     {!!Form::label('Nombre de usuario', 'Username');!!}
     {!!Form::text('username',null, $attributes=['required']);  !!}
@@ -20,22 +20,53 @@
 
     <br>
 
-    <div id="formulario-cliente" style="display:none;">
-
+    
+    <div id="formulario-empleado" style="display:none;">
+        {!!Form::label('cedula', 'Número de cedula :');!!}
+        {!!Form::text('cedulaem',null, $attributes=['required']);  !!}
+        <br>
+        {!!Form::label('nombres', 'Nombre del empleado :');!!}
+        {!!Form::text('nombresem',null, $attributes=['required']);  !!}
+        <br>
+        {!!Form::label('apellidos', 'Apellidos :');!!}
+        {!!Form::text('apellidosem',null, $attributes=['required']);  !!}
+        <br>
+        {!!Form::label('telefono', 'Número de telefono :');!!}
+        {!!Form::text('telefonoem',null, $attributes=['required']);  !!}
+        <br>
+        {!!Form::label('celular', 'Número de celular :');!!}
+        {!!Form::text('celularem',null, $attributes=['required']);  !!}
+        <br>
+        {!!Form::label('direccion', 'Dirección :');!!}
+        {!!Form::text('direccionem',null, $attributes=['required']);  !!}
+        <br>
+        
+        {!!Form::label('paises', 'Pais: ');!!}
+            <select name="paises">
+        @foreach($paises  as $pais)
+            <option value= {{$pais->codigo}}>{{$pais->nombre }}</option>
+        @endforeach
+        </select>
+        <br>
+        
+        {!!Form::label('ciudades', 'Ciudad: ');!!}
+        <select name="ciudades">
+        @foreach($ciudades as $ciudad)
+            <option value= {{$ciudad->id}}>{{$ciudad->nombre }}</option>
+        @endforeach
+        </select>
 
     </div>
-    <div id="formulario-empleado" style="display:none;">
+
+    <div id="formulario-cliente" style="display:none;">
         {!!Form::label('cedula', 'Número de cedula :');!!}
         {!!Form::text('cedula',null, $attributes=['required']);  !!}
         <br>
         {!!Form::label('nombres', 'Nombre del empleado :');!!}
         {!!Form::text('nombres',null, $attributes=['required']);  !!}
         <br>
-        {!!Form::label('apellido1', 'Primer apellido :');!!}
-        {!!Form::text('apellido1',null, $attributes=['required']);  !!}
-        <br>
-        {!!Form::label('apellido2', 'Segundo apellido :');!!}
-        {!!Form::text('apellido2',null, $attributes=['required']);  !!}
+        {!!Form::label('apellidos', 'Apellidos :');!!}
+        {!!Form::text('apellidos',null, $attributes=['required']);  !!}
         <br>
         {!!Form::label('telefono', 'Número de telefono :');!!}
         {!!Form::text('telefono',null, $attributes=['required']);  !!}
@@ -46,10 +77,30 @@
         {!!Form::label('direccion', 'Dirección :');!!}
         {!!Form::text('direccion',null, $attributes=['required']);  !!}
         <br>
-        @foreach($paises as $pais)
+        
         {!!Form::label('paises', 'Pais: ');!!}
-            {!!Form::select('paises',[0=>'seleccione el pais',$pais->id =>$pais->nombre],null, $attributes=['required']);  !!}
+            <select name="paises">
+        @foreach($paises  as $pais)
+            <option value= {{$pais->codigo}}>{{$pais->nombre }}</option>
         @endforeach
+        </select>
+        <br>
+        
+        {!!Form::label('ciudades', 'Ciudad: ');!!}
+        <select name="ciudades">
+        @foreach($ciudades as $ciudad)
+            <option value= {{$ciudad->id}}>{{$ciudad->nombre }}</option>
+        @endforeach
+        </select>
+
+        <br>
+        
+        {!!Form::label('empleados', 'Empleado: ');!!}
+        <select name="empleados">
+        @foreach($empleados as $empleado)
+            <option value= {{$empleado->id}}>{{$empleado->nombres }}</option>
+        @endforeach
+        </select>
 
     </div>
 

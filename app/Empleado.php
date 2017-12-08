@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Empleado extends Model
 {
     protected $fillable = [
-        'cedula', 'nombres', 'apellido1','apellido2','telefono','celular','direccion','pais_codigo','ciudad_id','user_id','estado'
+        'cedula', 'nombres', 'apellidos','telefono','celular','direccion','pais_codigo','ciudad_id','user_id','estado'
     ];
 
     public function user()
