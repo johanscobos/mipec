@@ -43,11 +43,11 @@ class Pago extends Model
     }
 
 
-   /* public function scopeBuscar($query,$cedula){
+   /* public function scopeBuscar($query,$dato){
 
-        if(trim($cedula) !=""){
-            $cliente = Cliente::where('cedula', $cedula)
-                ->orWhere('nombre_completo','like', '%' .$cedula. '%')
+        if(trim($dato) !=""){
+            $cliente = Cliente::where('cedula', $dato)
+                ->orWhere('nombre_completo','like', '%' .$dato. '%')
                 ->first();
 
             $cliente_id=$cliente->id;
@@ -58,12 +58,32 @@ class Pago extends Model
         }
 
     }
-   */
+  */
 
-    public function scopeBuscar($query,$cedula){
+    public function scopeBuscar($query,$dato){
 
-        if(trim($cedula) !=""){
-            $cliente = Cliente::where('cedula', $cedula)->first();
+        if(trim($dato) !=""){
+            $cliente = Cliente::where('cedula', $dato)->first();
+
+            if($cliente!=""){
+                $cliente_id=$cliente->id;
+
+                $query->where('cliente_id',$cliente_id);
+
+            }
+            else{
+                $query->where('referenceCode',$dato);
+            }
+
+        }
+
+    }
+
+    /*
+    public function scopeBuscar($query,$dato){
+
+        if(trim($dato) !=""){
+            $cliente = Cliente::where('cedula', $dato)->first();
 
             $cliente_id=$cliente->id;
 
@@ -71,6 +91,6 @@ class Pago extends Model
         }
     }
 
-
+*/
 
 }

@@ -94,9 +94,9 @@ class PagosController extends Controller
         {
             $pago->planilla= $request->file('planilla')->store('public');
             $pago->update($request->only('planilla'));
-            Flash::error('La planilla ha sido actualizada');
-            //return redirect('/clientes/pagos');
-            return redirect()->route('clientes.pagos');
+            flash('La planilla ha sido actualiza!!.')->success();
+            return redirect('/clientes/pagos');
+
         }
 
         else{
@@ -145,5 +145,12 @@ class PagosController extends Controller
     public function descargar_planilla(Request $request){
 
 
+    }
+
+    public function downloadFile($file){
+        //dd($file);
+        //$pathtoFile = public_path().'images/'.$file;
+        $path = storage_path($file);
+        return response()->download($path);
     }
 }
