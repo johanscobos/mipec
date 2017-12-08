@@ -8,9 +8,9 @@
 @section('title','Clientes - Subir Planilla')
 @section('content')
 
-    <h1>Gestionar Servicios de Cliente</h1>
+    <h1>Subir Planilla de Pensión</h1>
 
-    {!! Form::open(['route' => 'clientes.gestionar_servicios', 'method' => 'get']) !!}
+    {!! Form::open(['route' => 'clientes.subir_planilla', 'method' => 'get']) !!}
 
         {!! Form::label('cedula','Ingrese cédula del cliente' )!!}
         {!! Form::text('cedula' )!!}
@@ -62,19 +62,12 @@
                     @endphp
                 </td>
                 <td>
-                    {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
-                    @if($estado_servicio_actual==0)
-
-                        {!! Form::submit('Activar',['class' => 'btn btn-primary']); !!}
+                    {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'get']) !!}
+                        {!! Form::submit('Seleccionar',['class' => 'btn btn-primary']); !!}
                         {!! Form::hidden('cliente_id',$cliente_id )!!}
                         {!! Form::hidden('rc',$rc )!!}
                         {!! Form::hidden('accion','1' )!!}
-                    @else
-                        {!! Form::submit('Inactivar',['class' => 'btn btn-danger']); !!}
-                        {!! Form::hidden('cliente_id',$cliente_id )!!}
-                        {!! Form::hidden('rc',$rc )!!}
-                        {!! Form::hidden('accion','0' )!!}
-                    @endif
+
                     {!! Form::close() !!}
                 </td>
             </tr>
@@ -83,6 +76,6 @@
     </table>
 
     @else
-        <b>NO hay servicios asociados para clientes con este documento!!</b>
+        <b>NO hay servicios de Pago de Pensión asociados para este cliente!!</b>
     @endif
 @endsection

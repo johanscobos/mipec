@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Pago;
+
 
 class PagosController extends Controller
 {
@@ -11,9 +12,13 @@ class PagosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        //dd($request->get('cedula'));
+
+        $pagos= Pago::buscar($request->get('cedula'))->orderBy('id','ASC')->paginate(10);
+       return view('clientes.pagos.index')->with('pagos',$pagos);
     }
 
     /**
@@ -61,7 +66,10 @@ class PagosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pago= Pago::find($id);
+
+       return view('clientes.pagos.edit')->with('pago', $pago);
+
     }
 
     /**
@@ -73,7 +81,30 @@ class PagosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $validatedData = $request->validate([
+            'planilla' => 'mimes:jpeg,bmp,png,pdf│required',
+        ]);
+
+        // falta generar este numero
+        //$rc="0000000001";
+        $pago= Pago::find($id);
+
+        if($request->hasFile('planilla'))
+        {
+            $pago->planilla= $request->file('planilla')->store('public');
+            $pago->update($request->only('planilla'));
+            Flash::error('La planilla ha sido actualizada');
+            //return redirect('/clientes/pagos');
+            return redirect()->route('clientes.pagos');
+        }
+
+        else{
+            echo "No hay imagen";
+        }
+
+       //dd($id);
+
     }
 
     /**
@@ -85,5 +116,34 @@ class PagosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function subir_planilla(Request $request)
+    {
+        $validatedData = $request->validate([
+            'planilla' => 'mimes:jpeg,bmp,png,pdf│required',
+        ]);
+
+// falta generar este numero
+        $rc="0000000001";
+        $pago= Pago::where('referenceCode', '=' , $rc);
+
+        if($request->hasFile('planilla'))
+        {
+            $pago->planilla= $request->file('planilla')->store('public');
+            $pago->update($request->only('planilla'));
+            return redirect('/admin/clientes/gestionar_servicios');
+        }
+
+        else{
+            echo "No hay imagen";
+        }
+
+
+    }
+
+    public function descargar_planilla(Request $request){
+
+
     }
 }

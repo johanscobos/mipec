@@ -37,6 +37,7 @@
                 <td>
                     @php
                         $cliente_id=$clservicios->cliente_id;
+                        $servicio_id=$clservicios->servicio_id;
                         $rc=$clservicios->referenceCode;
                         $estado_servicio_actual=$clservicios->estado_servicio;
                         $cliente = App\Cliente::find($cliente_id);
@@ -62,18 +63,68 @@
                     @endphp
                 </td>
                 <td>
-                    {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
+
                     @if($estado_servicio_actual==0)
 
+                        @if($servicio_id==1)
+
+                        {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
                         {!! Form::submit('Activar',['class' => 'btn btn-primary']); !!}
                         {!! Form::hidden('cliente_id',$cliente_id )!!}
                         {!! Form::hidden('rc',$rc )!!}
                         {!! Form::hidden('accion','1' )!!}
+                        {!! Form::close() !!}
+
+                            {!! Form::open(['route' => 'clientes.planilla', 'method' => 'get']) !!}
+                            {!! Form::submit('Subir Planilla',['class' => 'btn btn-primary']); !!}
+                            {!! Form::hidden('cliente_id',$cliente_id )!!}
+                            {!! Form::hidden('rc',$rc )!!}
+                            {!! Form::hidden('accion','1' )!!}
+                            {!! Form::close() !!}
+
+                            {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
+                            {!! Form::submit('Descargar Planilla',['class' => 'btn btn-primary']); !!}
+                            {!! Form::hidden('cliente_id',$cliente_id )!!}
+                            {!! Form::hidden('rc',$rc )!!}
+                            {!! Form::hidden('accion','1' )!!}
+                            {!! Form::close() !!}
+
+                            {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
+                            {!! Form::submit('Listar Pagos',['class' => 'btn btn-primary']); !!}
+                            {!! Form::hidden('cliente_id',$cliente_id )!!}
+                            {!! Form::hidden('rc',$rc )!!}
+                            {!! Form::hidden('accion','1' )!!}
+                            {!! Form::close() !!}
+
+                            @else
+                            {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
+                            {!! Form::submit('Activar',['class' => 'btn btn-primary']); !!}
+                            {!! Form::submit('Listar Pagos',['class' => 'btn btn-primary']); !!}
+                            {!! Form::hidden('cliente_id',$cliente_id )!!}
+                            {!! Form::hidden('rc',$rc )!!}
+                            {!! Form::hidden('accion','1' )!!}
+                            {!! Form::close() !!}
+                        @endif
                     @else
+
+                        {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
+
+                        @if($servicio_id==1)
+
                         {!! Form::submit('Inactivar',['class' => 'btn btn-danger']); !!}
+                        {!! Form::submit('Subir Planilla',['class' => 'btn btn-danger']); !!}
+                        {!! Form::submit('Descargar Planilla',['class' => 'btn btn-danger']); !!}
+                        {!! Form::submit('Listar Pagos',['class' => 'btn btn-danger']); !!}
                         {!! Form::hidden('cliente_id',$cliente_id )!!}
                         {!! Form::hidden('rc',$rc )!!}
                         {!! Form::hidden('accion','0' )!!}
+                            @else
+                            {!! Form::submit('Inactivar',['class' => 'btn btn-danger']); !!}
+                            {!! Form::submit('Listar Pagos',['class' => 'btn btn-danger']); !!}
+                            {!! Form::hidden('cliente_id',$cliente_id )!!}
+                            {!! Form::hidden('rc',$rc )!!}
+                            {!! Form::hidden('accion','0' )!!}
+                           @endif
                     @endif
                     {!! Form::close() !!}
                 </td>

@@ -177,10 +177,13 @@ class ClientesController extends Controller
                 //return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
 
                 // $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+
+                //llama a la vista sin variable para que diga que no hay resultados encontrados
                 return view('admin.clientes.gestionar_servicios');
             }
         }
 
+        //muestra todos los clientes con servicios
         else{
              //si no esta definida la variable que muestre todos
             $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
@@ -207,16 +210,64 @@ class ClientesController extends Controller
     }
 
 
-    public function subir_planilla(Request $request)
+    public function subir_planillaOLD(Request $request)
     {
+
+        //ir al modelo clientes y buscar el nombre que coincida y luego traer el id para pasarselo
+        $cedula = $request->cedula;
+
+        if (!empty($cedula))
+        {
+            $cliente = Cliente::where('cedula', $cedula)->first();
+
+            if($cliente!=NULL)
+            {
+                $cliente_id = $cliente->id;
+                $clservicios = DB::table('cliente_servicio')->where([
+                    ['cliente_id', '=', $cliente_id],
+                    ['servicio_id', '=', 1],
+                ])->get();
+                return view('admin.clientes.subir_planilla', ['clservicios' => $clservicios]);
+            }
+            else{
+                //$clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+                //return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
+
+                // $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+
+                //llama a la vista sin variable para que diga que no hay resultados encontrados
+                return view('admin.clientes.subir_planilla');
+            }
+        }
+
+        //muestra todos los clientes con servicio de pago de pensión
+        else{
+            //si no esta definida la variable que muestre todos
+            $clservicios = DB::table('cliente_servicio')->where('servicio_id', 1)->get();
+            return view('admin.clientes.subir_planilla', ['clservicios' => $clservicios]);
+        }
+
+
 
         /*$clservicios = DB::table('cliente_servicio')->where([
             ['cliente_id', '=', $cliente_id],
             ['servicio_id', '=', 1],
         ])->get();*/
 
-        $clservicios = DB::table('cliente_servicio')->where('servicio_id', 1)->get();
-        return view('admin.clientes.subir_planilla', ['clservicios' => $clservicios]);
+        //$clservicios = DB::table('cliente_servicio')->where('servicio_id', 1)->get();
+        //return view('admin.clientes.subir_planilla', ['clservicios' => $clservicios]);
+
+
+
+    }
+
+    public function planilla(Request $request)
+    {
+
+       // return view('admin.servicios.planillas');
+        $request_>file('planilla')->store('public');
+
+       // $cliente
 
     }
 
