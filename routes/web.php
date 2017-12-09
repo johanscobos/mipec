@@ -42,10 +42,15 @@ Route::get('/admin/clientes/planilla', function () {
 })->name('clientes.planilla');
 
 
+Route::get('/admin/administrador/clienteEmpleado', 'adminController@clienteEmpleado');
+Route::get('/admin/administrador/storageClienteEmpleado/{id}', 'adminController@storageClienteEmpleado')->name('clienteEmpleado');
+Route::post('/admin/administrador/storeRelClEm', 'adminController@storeRelClEm')->name('guardarRelacion');
 
+Route::get('/admin/empleados/verClientes', 'empleadosController@visualizarClientes')->name('verClientes');
 Route::group(['prefix' =>'admin'], function (){
     Route::resource('servicios','ServiciosController');
     Route::resource('clientes','ClientesController');
+    Route::resource('empleados','empleadosController');
     Route::resource('administrador', 'adminController');
 
 });

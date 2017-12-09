@@ -22,15 +22,9 @@
     <div class="row">
         <div class="col-md-3" style="border:1px solid #0b2e13">
 
-            @php
-
-            @endphp
-
-            @if(Auth::user()->tipo_user=='0')
-            @include('layouts.partials.sidebar-menu-admin')
-                @else
-                @include('layouts.partials.sidebar-menu-clientes')
-            @endif
+        
+                @include('layouts.partials.sidebar-menu')
+            
         </div>
         <div class="col-md-9" style="border:1px solid #0b2e13">
             @yield('content')
