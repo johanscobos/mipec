@@ -1,4 +1,4 @@
-<ul>
+<ul class="lista">
 	<b>Administrador</b><br>
     <li><a href="{{url('admin/administrador/create')}}">Crear Usuarios</a></li>
     <li><a href="{{url('admin/servicios/create')}}">Crear Servicios</a></li>

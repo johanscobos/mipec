@@ -2,21 +2,20 @@
 
 
 @section('content')
+    <h2>Registrar usuarios</h2>
 {!! Form::open(['route' => 'administrador.store', 'method' => 'post', 'novalidate' => 'novalidate']) !!}
 
     {!!Form::label('Nombre de usuario', 'Username');!!}
-    {!!Form::text('username',null, $attributes=['required']);  !!}
+    {!!Form::text('username',null, ['class' => 'form-control'],$attributes=['required']);  !!}
     <br>
     {!!Form::label('email', 'Correo electronico');!!}
-    {!!Form::email('email',null, $attributes=['required']);  !!}
+    {!!Form::email('email',null, ['class' => 'form-control'],$attributes=['required']);  !!}
     <br>
     {!!Form::label('tipo_user', 'Tipo de usuario');!!}
     {!!Form::select('tipo_user',[-1=>'seleccione una opcion',1 => 'Cliente', 0 => 'Empleado' ],null, $attributes=['required']);  !!}
     <br>
     {!!Form::label('password', 'Contraseña');!!}
-    {!!Form::password('password', ['class' => 'awesome']);!!}
-
-
+    {!!Form::password('password', ['class' => 'awesome form-control']);!!}
 
     <br>
 
@@ -105,7 +104,7 @@
     </div>
 
 
-{!! Form::submit('Registrar'); !!}
+    {!! Form::submit('Registrar',['class' => 'btn btn-primary']); !!}
 {!! Form::close() !!}
 
 
