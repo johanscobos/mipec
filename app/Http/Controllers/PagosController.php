@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Pago;
+use App\Cliente;
 
 
 class PagosController extends Controller
@@ -118,6 +120,26 @@ class PagosController extends Controller
         //
     }
 
+
+    public function mispagos(Request $request)
+    {
+        //dd("estoy en mis pagos");
+
+        $user_id = Auth::id();
+
+
+        $cliente = Cliente::where('user_id', $user_id)->first();
+        $cliente_id = $cliente->id;
+        //dd($cliente_id);
+
+        $pagos= Pago::buscar_ref($request->get('dato'))
+        ->where('cliente_id', $cliente_id)->orderBy('id','ASC')->paginate(10);
+        //$pagos = Pago::where('cliente_id', $cliente_id)->get();
+
+        return view('clientes.pagos.ver_pagos')->with('pagos', $pagos);
+
+    }
+
     public function subir_planilla(Request $request)
     {
         $validatedData = $request->validate([
@@ -142,15 +164,12 @@ class PagosController extends Controller
 
     }
 
-    public function descargar_planilla(Request $request){
 
 
-    }
-
-    public function downloadFile($file){
-        //dd($file);
-        //$pathtoFile = public_path().'images/'.$file;
-        $path = storage_path($file);
+    public function descargar_planilla($id){
+        $pago= Pago::find($id);
+        $planilla=$pago->planilla;
+        $path = storage_path('app/'.$planilla);
         return response()->download($path);
     }
 }

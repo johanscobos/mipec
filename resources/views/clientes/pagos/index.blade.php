@@ -40,7 +40,7 @@
                 <td>{{$pago->referenceCode}}</td>
                 <td>{{$pago->valor_pago}}</td>
                 @if($pago->datosservicio->id ==1)
-                    <td><a href="{{route('pagos.edit',$pago->id)}}" class="btn btn-danger">S. Planilla</a> <a href="{{route('clientes.pagos.bajar_planilla',$pago->planilla)}}" class="btn btn-danger">D. Planilla</a> <a href="" class="btn btn-warning">Detalles</a></td>
+                    <td><a href="{{route('pagos.edit',$pago->id)}}" class="btn btn-danger">S. Planilla</a> <a href="{{route('clientes.pagos.bajar_planilla',$pago->id)}}" class="btn btn-danger">D. Planilla</a> <a href="" class="btn btn-warning">Detalles</a></td>
                 @else
                     <td><a href="" class="btn btn-warning">Detalles</a></td>
                 @endif

@@ -79,6 +79,14 @@ class Pago extends Model
 
     }
 
+    public function scopeBuscar_ref($query,$dato){
+
+        if(trim($dato) !=""){
+            $query->where('referenceCode',$dato);
+        }
+
+    }
+
     /*
     public function scopeBuscar($query,$dato){
 

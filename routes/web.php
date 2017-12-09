@@ -25,8 +25,11 @@ Route::get('/admin/clientes/servicios', 'ClientesController@servicios');
 
 Route::get('/admin/clientes/gestionar_servicios', 'ClientesController@gestionar_servicios')->name('clientes.gestionar_servicios');
 Route::put('/admin/clientes/subir_planilla', 'PagosController@subir_planilla')->name('clientes.subir_planilla');
-Route::get('/clientes/pagos/bajar_planilla/{file}', 'PagosController@downloadFile')->name('clientes.pagos.bajar_planilla');
-Route::get('/admin/clientes/descargar_planilla', 'PagosController@descargar_planilla')->name('clientes.descargar_planilla');
+Route::get('/clientes/pagos/bajar_planilla/{id}', 'PagosController@descargar_planilla')->name('clientes.pagos.bajar_planilla');
+
+Route::get('/clientes/pagos/ver_pagos/','PagosController@mispagos')->name('clientes.pagos.ver_pagos');
+
+//Route::get('/admin/clientes/descargar_planilla', 'PagosController@descargar_planilla')->name('clientes.descargar_planilla');
 Route::post('/admin/clientes/activar_inactivar_servicio', 'ClientesController@activar_inactivar_servicio')->name('clientes.activar_inactivar_servicio');
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');
 
