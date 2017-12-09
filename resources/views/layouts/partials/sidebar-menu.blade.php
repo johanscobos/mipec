@@ -1,5 +1,5 @@
 <ul>
-	<b>Administrador</b><br>
+	
     <li><a href="{{url('admin/administrador/create')}}">Crear Usuarios</a></li>
     <li><a href="{{url('admin/administrador/clienteEmpleado')}}">Asignar empleado a cliente</a></li>
     <li><a href="{{url('admin/empleados/create')}}">Crear Cargos</a></li>
