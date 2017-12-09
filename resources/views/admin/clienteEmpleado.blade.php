@@ -1,14 +1,27 @@
 @extends('layouts.principal')
 @section('content')
- {!! Form::open(['route' => 'clienteEmpleado', 'method' => 'post', 'novalidate' => 'novalidate']) !!}
+  <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Cliente</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($cliente as $cliente)
+            <tr>
+                <th scope="row">{{$cliente->id}}</th>
+                <td>{{$cliente->nombres. ' '.$cliente->apellidos}}</td>
+                
+                
+                    <td><a href="{{route('clienteEmpleado',$cliente->id)}}" class="btn btn-danger">Asociar cliente a empleado</a> </td>
+                
+                    
+                
 
-  {!!Form::label('cliente', 'Clientes: ');!!}
-            <select name="cliente">
-        @foreach($cliente  as $cliente)
-            <option value= {{$cliente->id}}>{{$cliente->nombres }}</option>
+            </tr>
         @endforeach
-        </select>
-        <br>
- {!! Form::submit('Registrar'); !!}
-{!! Form::close() !!}
+        
+        </tbody>
+    </table>
 @endsection

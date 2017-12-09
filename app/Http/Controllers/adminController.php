@@ -118,9 +118,21 @@ class adminController extends Controller
         $cliente= Cliente::all();
         return view('admin.clienteEmpleado',compact('cliente'));
     }
-    public function storageClienteEmpleado(Request $request)
+
+    public function storageClienteEmpleado($id)
     {
-        dd($request);
+        
+        $empleado= Empleado::all();
+        return view('admin.relClienteEmpleado',compact('empleado','id'));
+    }
+
+    public function storeRelClEm(Request $request)
+    {
+        $cliente= Cliente::find($request->id);
+
+        $cliente->empleado_id = $request->input('empleados');
+        $cliente->save();
+        
     }
     public function show($id)
     {
