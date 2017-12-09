@@ -1,5 +1,8 @@
 @extends('layouts.principal')
 @section('content')
+
+    <h2>Asignar Empleado a Cliente</h2>
+
   <table class="table table-striped">
         <thead>
         <tr>

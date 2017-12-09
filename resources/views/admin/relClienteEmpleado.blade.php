@@ -3,6 +3,8 @@
 
 @section('content')
 
+        <h2>Buscar Empleado</h2>
+        @include('flash::message')
 {!! Form::open(['route' => 'guardarRelacion', 'method' => 'post', 'novalidate' => 'novalidate']) !!}
 
 
@@ -16,7 +18,7 @@
         </select>
         <br>
 
-{!! Form::submit('Relacionar'); !!}
+{!! Form::submit('Relacionar',['class' => 'btn btn-primary']); !!}
 {!! Form::close() !!}
 
 @endsection

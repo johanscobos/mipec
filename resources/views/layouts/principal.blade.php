@@ -14,26 +14,20 @@
 
     <title>Admin - @yield('title')</title>
 
-
-
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3" style="border:1px solid #0b2e13">
-
-        
+@include('layouts.partials.header')
+<div class="container-flex cont">
+        <div class="sidebar">
                 @include('layouts.partials.sidebar-menu')
-            
         </div>
-        <div class="col-md-9" style="border:1px solid #0b2e13">
+        <div class="contenido">
             @yield('content')
         </div>
-    </div>
+
 </div>
 
 @include('layouts.partials.footer')
-
 
 
 

@@ -2,43 +2,43 @@
 
 
 @section('content')
+    <h2>Registrar usuarios</h2>
+
 {!! Form::open(['route' => 'administrador.store', 'method' => 'post', 'novalidate' => 'novalidate']) !!}
 
     {!!Form::label('Nombre de usuario', 'Username');!!}
-    {!!Form::text('username',null, $attributes=['required']);  !!}
+    {!!Form::text('username',null, ['class' => 'form-control'],$attributes=['required']);  !!}
     <br>
     {!!Form::label('email', 'Correo electronico');!!}
-    {!!Form::email('email',null, $attributes=['required']);  !!}
+    {!!Form::email('email',null, ['class' => 'form-control'],$attributes=['required']);  !!}
     <br>
     {!!Form::label('tipo_user', 'Tipo de usuario');!!}
     {!!Form::select('tipo_user',[-1=>'seleccione una opcion',1 => 'Cliente', 0 => 'Empleado' ],null, $attributes=['required']);  !!}
     <br>
     {!!Form::label('password', 'Contraseña');!!}
-    {!!Form::password('password', ['class' => 'awesome']);!!}
-
-
+    {!!Form::password('password', ['class' => 'awesome form-control']);!!}
 
     <br>
 
     
     <div id="formulario-empleado" style="display:none;">
         {!!Form::label('cedula', 'Número de cedula :');!!}
-        {!!Form::text('cedulaem',null, $attributes=['required']);  !!}
+        {!!Form::text('cedulaem',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('nombres', 'Nombre del empleado :');!!}
-        {!!Form::text('nombresem',null, $attributes=['required']);  !!}
+        {!!Form::text('nombresem',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('apellidos', 'Apellidos :');!!}
-        {!!Form::text('apellidosem',null, $attributes=['required']);  !!}
+        {!!Form::text('apellidosem',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('telefono', 'Número de telefono :');!!}
-        {!!Form::text('telefonoem',null, $attributes=['required']);  !!}
+        {!!Form::text('telefonoem',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('celular', 'Número de celular :');!!}
-        {!!Form::text('celularem',null, $attributes=['required']);  !!}
+        {!!Form::text('celularem',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('direccion', 'Dirección :');!!}
-        {!!Form::text('direccionem',null, $attributes=['required']);  !!}
+        {!!Form::text('direccionem',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         
         {!!Form::label('paises', 'Pais: ');!!}
@@ -60,22 +60,22 @@
 
     <div id="formulario-cliente" style="display:none;">
         {!!Form::label('cedula', 'Número de cedula :');!!}
-        {!!Form::text('cedula',null, $attributes=['required']);  !!}
+        {!!Form::text('cedula',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('nombres', 'Nombre del empleado :');!!}
-        {!!Form::text('nombres',null, $attributes=['required']);  !!}
+        {!!Form::text('nombres',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('apellidos', 'Apellidos :');!!}
-        {!!Form::text('apellidos',null, $attributes=['required']);  !!}
+        {!!Form::text('apellidos',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('telefono', 'Número de telefono :');!!}
-        {!!Form::text('telefono',null, $attributes=['required']);  !!}
+        {!!Form::text('telefono',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('celular', 'Número de celular :');!!}
-        {!!Form::text('celular',null, $attributes=['required']);  !!}
+        {!!Form::text('celular',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         {!!Form::label('direccion', 'Dirección :');!!}
-        {!!Form::text('direccion',null, $attributes=['required']);  !!}
+        {!!Form::text('direccion',null, ['class' => 'form-control'],$attributes=['required']);  !!}
         <br>
         
         {!!Form::label('paises', 'Pais: ');!!}
@@ -93,19 +93,12 @@
         @endforeach
         </select>
 
-        <br>
-        
-        {!!Form::label('empleados', 'Empleado: ');!!}
-        <select name="empleados">
-        @foreach($empleados as $empleado)
-            <option value= {{$empleado->id}}>{{$empleado->nombres }}</option>
-        @endforeach
-        </select>
+
 
     </div>
 
 
-{!! Form::submit('Registrar'); !!}
+    {!! Form::submit('Registrar',['class' => 'btn btn-primary']); !!}
 {!! Form::close() !!}
 
 

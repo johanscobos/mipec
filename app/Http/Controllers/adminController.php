@@ -99,6 +99,8 @@ class adminController extends Controller
             $cliente->estado= 1;
 
             $cliente->save();
+
+             return redirect('administrador/show');
         }
        //dd($request);
         /*if($request->tipo_user == '1')
@@ -132,11 +134,15 @@ class adminController extends Controller
 
         $cliente->empleado_id = $request->input('empleados');
         $cliente->save();
+
+        flash('Se creó la relación!!.')->success();
+        return redirect('/admin/administrador/storeRelClEm');
         
     }
-    public function show($id)
+    public function show()
     {
-        //
+        flash('El usuario se creo satisfactoriamente!!.')->success();
+        return view('admin.creadoSatisfactorio');
     }
 
     /**

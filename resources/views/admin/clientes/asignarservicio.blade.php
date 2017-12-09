@@ -2,7 +2,9 @@
 @section('title','Clientes - Asignar Servicios')
 @section('content')
 
+
     <h2>Asignar Servicios</h2>
+    @include('flash::message')
     {!! Form::open(['route' => 'clientes.store', 'method' => 'post']) !!}
     @foreach($errors->all() as $error)
         <p class="alert alert-danger">{{$error}}</p>
@@ -18,6 +20,10 @@
     <div class="form-group">
         {!!Form::label('valor_pagar', 'Valor del servicio');!!}
         {!! Form::number('valor_pagar',null, ['class' => 'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!!Form::label('descripcion_variable', 'Descripcion variable');!!}
+        {!! Form::text('descripcion_variable',null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">
         {!!Form::label('estado_pago', 'Estado de Pago');!!}

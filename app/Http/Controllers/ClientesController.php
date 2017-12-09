@@ -15,6 +15,8 @@ class ClientesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         Cliente::findAll();
@@ -51,17 +53,47 @@ class ClientesController extends Controller
         //$cliente->servicio_id=$request->servicio_id;
 
 
+        //buscar el ultimo registro de cliente_servicio y sacar el valor de referenceCode
+// esto hay que mejorarlo::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        $max_id = DB::table('cliente_servicio')->max('id');
+        //dd($max_id);
+
+        $ultimo = DB::table('cliente_servicio')->where([
+            ['id', '=', $max_id],
+
+        ])->first();
+
+        if($ultimo=="")
+        {
+            $ultimo_reference=0;
+        }
+        else{
+            //dd($ultimo->referenceCode);
+            $ultimo_reference=$ultimo->referenceCode;
+        }
+
+        //$ultimo= $clservicios->referenceCode;
+        //dd($ultimo);
+        //$prefijo="MIPEC";
+        $referenceCode=$ultimo_reference+1;
+        //dd($datoRef);
+        //$referenceCode=$datoRef;
+        //dd($referenceCode);
 
 
         $cl=$request->cliente_id;
         $serv=$request->servicio_id;
 
+        //sacar valor a pagar
+        //enviar codeReferce
+
        $cliente=Cliente::find($cl);
-       $cliente->servicios()->attach($serv,['valor_pagar' => '10000','estado_pago' => '1','estado_servicio'=>'1']);
+       $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'estado_pago' => '1','estado_servicio'=>'0']);
         //$cliente->servicios()->save($servicioss_id, ['valor_pagar' => $request->valor_pagar,'estado_pago' => $request->estado_pago,'estado_servicio'=>$request->estado_pago]);
 
 
-        dd('Empleado creado exitosamente!!!');
+        flash('El servicio se asignó satisfactoriamente!!.')->success();
+        return redirect('/admin/clientes/asignarservicio');
     }
 
     /**
@@ -115,12 +147,10 @@ class ClientesController extends Controller
         $clientes = DB::table('clientes')->pluck('nombres', 'id');
         $servicios = DB::table('servicios')->pluck('nombre', 'id');
 
+        //crear referenceCode
 
         return view ('admin.clientes.asignarservicio',compact('clientes','servicios'));;
 
-
-        //traiga un formulario para asignarle un servicio
-        //return view('admin.clientes.asignarservicio');
 
     }
 

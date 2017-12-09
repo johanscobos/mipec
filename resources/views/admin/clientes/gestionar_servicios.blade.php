@@ -8,7 +8,7 @@
 @section('title','Clientes - Gestionar Servicios')
 @section('content')
 
-    <h1>Gestionar Servicios de Cliente</h1>
+    <h1>Activar / Inactivar Cliente</h1>
 
     {!! Form::open(['route' => 'clientes.gestionar_servicios', 'method' => 'get']) !!}
 
@@ -75,35 +75,7 @@
                         {!! Form::hidden('accion','1' )!!}
                         {!! Form::close() !!}
 
-                            {!! Form::open(['route' => 'clientes.planilla', 'method' => 'get']) !!}
-                            {!! Form::submit('Subir Planilla',['class' => 'btn btn-primary']); !!}
-                            {!! Form::hidden('cliente_id',$cliente_id )!!}
-                            {!! Form::hidden('rc',$rc )!!}
-                            {!! Form::hidden('accion','1' )!!}
-                            {!! Form::close() !!}
 
-                            {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
-                            {!! Form::submit('Descargar Planilla',['class' => 'btn btn-primary']); !!}
-                            {!! Form::hidden('cliente_id',$cliente_id )!!}
-                            {!! Form::hidden('rc',$rc )!!}
-                            {!! Form::hidden('accion','1' )!!}
-                            {!! Form::close() !!}
-
-                            {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
-                            {!! Form::submit('Listar Pagos',['class' => 'btn btn-primary']); !!}
-                            {!! Form::hidden('cliente_id',$cliente_id )!!}
-                            {!! Form::hidden('rc',$rc )!!}
-                            {!! Form::hidden('accion','1' )!!}
-                            {!! Form::close() !!}
-
-                            @else
-                            {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
-                            {!! Form::submit('Activar',['class' => 'btn btn-primary']); !!}
-                            {!! Form::submit('Listar Pagos',['class' => 'btn btn-primary']); !!}
-                            {!! Form::hidden('cliente_id',$cliente_id )!!}
-                            {!! Form::hidden('rc',$rc )!!}
-                            {!! Form::hidden('accion','1' )!!}
-                            {!! Form::close() !!}
                         @endif
                     @else
 
@@ -112,15 +84,13 @@
                         @if($servicio_id==1)
 
                         {!! Form::submit('Inactivar',['class' => 'btn btn-danger']); !!}
-                        {!! Form::submit('Subir Planilla',['class' => 'btn btn-danger']); !!}
-                        {!! Form::submit('Descargar Planilla',['class' => 'btn btn-danger']); !!}
-                        {!! Form::submit('Listar Pagos',['class' => 'btn btn-danger']); !!}
+
                         {!! Form::hidden('cliente_id',$cliente_id )!!}
                         {!! Form::hidden('rc',$rc )!!}
                         {!! Form::hidden('accion','0' )!!}
                             @else
                             {!! Form::submit('Inactivar',['class' => 'btn btn-danger']); !!}
-                            {!! Form::submit('Listar Pagos',['class' => 'btn btn-danger']); !!}
+
                             {!! Form::hidden('cliente_id',$cliente_id )!!}
                             {!! Form::hidden('rc',$rc )!!}
                             {!! Form::hidden('accion','0' )!!}

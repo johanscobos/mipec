@@ -1,1 +1,1 @@
-<div class="footer">Este es el footer</div>
+<div class="footer">MIPensionencolombia. @Todos los derechos reservados</div>
