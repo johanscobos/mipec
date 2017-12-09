@@ -43,7 +43,13 @@ class ServiciosController extends Controller
         //return $request->all();
         $servicio=new Servicio;
         $servicio->nombre=$request->nombre;
+        $servicio->descripcion=$request->descripcion;
         $servicio->save();
+
+        flash('El servicio se creó satisfactoriamente!!.')->success();
+        return redirect('/admin/servicios/create');
+
+
     }
 
     /**

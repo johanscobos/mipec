@@ -4,6 +4,7 @@
 
 
     <h2>Asignar Servicios</h2>
+    @include('flash::message')
     {!! Form::open(['route' => 'clientes.store', 'method' => 'post']) !!}
     @foreach($errors->all() as $error)
         <p class="alert alert-danger">{{$error}}</p>

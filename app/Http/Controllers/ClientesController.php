@@ -63,8 +63,14 @@ class ClientesController extends Controller
 
         ])->first();
 
-        //dd($ultimo->referenceCode);
-        $ultimo_reference=$ultimo->referenceCode;
+        if($ultimo=="")
+        {
+            $ultimo_reference=0;
+        }
+        else{
+            //dd($ultimo->referenceCode);
+            $ultimo_reference=$ultimo->referenceCode;
+        }
 
         //$ultimo= $clservicios->referenceCode;
         //dd($ultimo);
@@ -82,11 +88,12 @@ class ClientesController extends Controller
         //enviar codeReferce
 
        $cliente=Cliente::find($cl);
-       $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'estado_pago' => '0','estado_servicio'=>'0']);
+       $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'estado_pago' => '1','estado_servicio'=>'0']);
         //$cliente->servicios()->save($servicioss_id, ['valor_pagar' => $request->valor_pagar,'estado_pago' => $request->estado_pago,'estado_servicio'=>$request->estado_pago]);
 
 
-        dd('Empleado creado exitosamente!!!');
+        flash('El servicio se asignó satisfactoriamente!!.')->success();
+        return redirect('/admin/clientes/asignarservicio');
     }
 
     /**

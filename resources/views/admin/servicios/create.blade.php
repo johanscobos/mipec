@@ -3,6 +3,7 @@
 @section('content')
 
     <h2>Crear Servicios</h2>
+    @include('flash::message')
     {!! Form::open(['route' => 'servicios.store', 'method' => 'post']) !!}
     @foreach($errors->all() as $error)
     <p class="alert alert-danger">{{$error}}</p>
@@ -10,6 +11,9 @@
     <div class="form-group">
         {!!Form::label('servicio', 'Nombre del servicio');!!}
         {!!Form::text('nombre',null,['class' => 'form-control'], $attributes=['required']) ; !!}
+
+        {!!Form::label('descripcion', 'Descripción');!!}
+        {!!Form::text('descripcion',null,['class' => 'form-control'], $attributes=['required']) ; !!}
     </div>
 
     <br>
