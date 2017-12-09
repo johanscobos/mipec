@@ -22,6 +22,11 @@ class CreateClienteServicioTable extends Migration
             $table->integer('servicio_id')->unsigned();
             $table->foreign('servicio_id')->references('id')->on('servicios');
 
+            $table->text('descripcion_variable')->nullable();
+
+            $table->string('referenceCode',255);
+            
+
             $table->integer('valor_pagar');
 
             $table->char('estado_pago',1);
