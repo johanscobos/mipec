@@ -77,6 +77,7 @@
                 {!! Form::open(['url' => 'https://gateway.payulatam.com/ppp-web-gateway/', 'method' => 'post']) !!}
 
 
+
                     {!! Form::hidden('merchantId','688911') ; !!}
                     {!! Form::hidden('ApiKey','K4mvTeqzoeATzM5F72DVP3O8VO') ; !!}
                     {!! Form::hidden('referenceCode',$pp->referenceCode) ; !!}
@@ -96,10 +97,12 @@
                     {!! Form::hidden('confirmationUrl','http://www.mipensionencolombia.com/confirmation') !!}
                     {!! Form::submit('Pagar',['class' => 'btn btn-danger']); !!}
 
-
-
-
                     {!! Form::close() !!}
+
+
+
+
+
                 </td>
             </tr>
         @endforeach

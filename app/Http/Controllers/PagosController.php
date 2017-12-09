@@ -98,7 +98,6 @@ class PagosController extends Controller
             $pago->update($request->only('planilla'));
             flash('La planilla ha sido actualiza!!.')->success();
             return redirect('/clientes/pagos');
-
         }
 
         else{

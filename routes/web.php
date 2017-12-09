@@ -28,6 +28,8 @@ Route::get('/admin/clientes/gestionar_servicios', 'ClientesController@gestionar_
 Route::put('/admin/clientes/subir_planilla', 'PagosController@subir_planilla')->name('clientes.subir_planilla');
 Route::get('/clientes/pagos/bajar_planilla/{id}', 'PagosController@descargar_planilla')->name('clientes.pagos.bajar_planilla');
 
+
+
 Route::get('/clientes/pagos/ver_pagos/','PagosController@mispagos')->name('clientes.pagos.ver_pagos');
 
 //Route::get('/admin/clientes/descargar_planilla', 'PagosController@descargar_planilla')->name('clientes.descargar_planilla');
