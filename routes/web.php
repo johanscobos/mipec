@@ -38,6 +38,7 @@ Route::get('/admin/clientes/planilla', function () {
     return view('admin.servicios.planillas');
 })->name('clientes.planilla');
 
+
 Route::get('/admin/administrador/clienteEmpleado', 'adminController@clienteEmpleado');
 Route::get('/admin/administrador/storageClienteEmpleado/{id}', 'adminController@storageClienteEmpleado')->name('clienteEmpleado');
 Route::post('/admin/administrador/storeRelClEm', 'adminController@storeRelClEm')->name('guardarRelacion');
