@@ -17,7 +17,8 @@
 
 
 </head>
-<body>
+<body class="altura">
+@include('layouts.partials.header')
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3" style="border:1px solid #0b2e13">

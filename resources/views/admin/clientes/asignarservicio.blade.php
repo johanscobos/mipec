@@ -20,6 +20,10 @@
         {!! Form::number('valor_pagar',null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">
+        {!!Form::label('descripcion_variable', 'Descripcion variable');!!}
+        {!! Form::text('descripcion_variable',null, ['class' => 'form-control']) !!}
+    </div>
+    <div class="form-group">
         {!!Form::label('estado_pago', 'Estado de Pago');!!}
         {!! Form::select('estado_pago', ['0' => 'Inactivo', '1' => 'Activo'], ['class' => 'form-control']) !!}
     </div>
