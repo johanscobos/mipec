@@ -5,8 +5,10 @@
     <li><a href="{{url('admin/administrador/clienteEmpleado')}}">Asignar empleado a cliente</a></li>
 
     <li><a href="{{url('admin/clientes/asignarservicio')}}">Asignar servicio a cliente</a></li>
-    <li><a href="{{url('admin/clientes/gestionar_servicios')}}">Activar/Inactivar Cliente</a></li>
-    <li><a href="{{url('/clientes/pagos')}}">Pagos Clientes</a></li>
+    <li><a href="{{url('/clientes/pagos')}}">Listar Pagos de Clientes</a></li>
+
+    <li><a href="{{url('admin/clientes/gestionar_servicios')}}">Activar/Inactivar Servicio</a></li>
+
 
 
     <b>Clientes</b><br>
