@@ -53,7 +53,7 @@ class adminController extends Controller
             $usuario->username= $request->input('username');
             $usuario->email= $request->input('email');
             $usuario->tipo_user= $request->input('tipo_user');
-            $usuario->password= $request->input('password');
+            $usuario->password=bcrypt( $request->input('password'));
 
             $usuario->save();
            // Flash::success("Se ha registrado el usuario ".$usuario->username." de manera exitosa!");
@@ -81,7 +81,7 @@ class adminController extends Controller
             $usuario->username= $request->input('username');
             $usuario->email= $request->input('email');
             $usuario->tipo_user= $request->input('tipo_user');
-            $usuario->password= $request->input('password');
+            $usuario->password= bcrypt($request->input('password'));
 
             $usuario->save();
 

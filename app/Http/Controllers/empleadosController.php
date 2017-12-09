@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Cliente;
+use App\Empleado;
 class empleadosController extends Controller
 {
     /**
@@ -18,8 +19,13 @@ class empleadosController extends Controller
 
     public function visualizarClientes()
     {
-        $id= auth::id();
-        return view('admin.empleados.verClientes',compact('id'));
+
+        //$id= auth::id();
+        $empleado= Empleado::where('user_id',auth::id())->first();
+        $id=$empleado->id;
+        $cliente=Cliente::where('empleado_id',$id)->get();
+        //dd($cliente);
+        return view('admin.empleados.verClientes',compact('cliente'));
     }
     /**
      * Show the form for creating a new resource.
