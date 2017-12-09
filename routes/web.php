@@ -47,6 +47,9 @@ Route::get('/admin/administrador/clienteEmpleado', 'adminController@clienteEmple
 Route::get('/admin/administrador/storageClienteEmpleado/{id}', 'adminController@storageClienteEmpleado')->name('clienteEmpleado');
 Route::post('/admin/administrador/storeRelClEm', 'adminController@storeRelClEm')->name('guardarRelacion');
 
+Route::get('/admin/empleados/conclusionEmpCli', 'empleadosController@mostrarConclusion')->name('conclusiones');
+Route::get('/admin/empleados/historialConversaciones', 'empleadosController@historialConclusion')->name('historial');
+
 Route::get('/admin/empleados/verClientes', 'empleadosController@visualizarClientes')->name('verClientes');
 Route::group(['prefix' =>'admin'], function (){
     Route::resource('servicios','ServiciosController');

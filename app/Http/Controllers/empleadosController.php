@@ -37,6 +37,14 @@ class empleadosController extends Controller
         //
     }
 
+    public function mostrarConclusion(){
+        return view('admin.empleados.conclusionEmpCli');
+    }
+
+    public function historialConclusion(){
+        return view('admin.empleados.historialConversaciones');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,7 +53,7 @@ class empleadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

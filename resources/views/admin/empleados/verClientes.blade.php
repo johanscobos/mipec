@@ -5,7 +5,7 @@
 @foreach($cliente as $cliente)
 
 <ul>
-	<li>{{$cliente->nombres}}</li>
+	<li><a href="{{route('conclusiones')}}">{{$cliente->nombres}}</a></li>
 </ul>
 @endforeach
 @endsection

@@ -8,6 +8,7 @@ use App\Ciudad;
 use App\Empleado;
 use App\Cliente;
 use App\User;
+use Spatie\Permission\Models\Role;
 
 
 class adminController extends Controller
@@ -33,7 +34,8 @@ class adminController extends Controller
         $paises= Pais::all();
         $ciudades= Ciudad::all();
         $empleados= Empleado::all();
-        return view('admin.registrar_usuarios', compact('ciudades','paises','empleados'));
+        $roles= Role::all();
+        return view('admin.registrar_usuarios', compact('ciudades','paises','empleados','roles'));
     }
 
     /**
@@ -53,6 +55,7 @@ class adminController extends Controller
             $usuario->username= $request->input('username');
             $usuario->email= $request->input('email');
             $usuario->tipo_user= $request->input('tipo_user');
+            $usuario->tipo_rol=$request->input('roles');
             $usuario->password=bcrypt( $request->input('password'));
 
             $usuario->save();
@@ -81,6 +84,7 @@ class adminController extends Controller
             $usuario->username= $request->input('username');
             $usuario->email= $request->input('email');
             $usuario->tipo_user= $request->input('tipo_user');
+            $usuario->tipo_rol=$request->input('roles');
             $usuario->password= bcrypt($request->input('password'));
 
             $usuario->save();
@@ -100,7 +104,7 @@ class adminController extends Controller
 
             $cliente->save();
 
-             return redirect('administrador/show');
+             return redirect('admin/administrador/show');
         }
        //dd($request);
         /*if($request->tipo_user == '1')

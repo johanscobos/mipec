@@ -3,6 +3,7 @@
 	
 
 <ul class="lista">
+
 	<b>Administrador</b><br>
 
     <li><a href="{{url('admin/administrador/create')}}">Crear Usuarios</a></li>
@@ -21,4 +22,5 @@
 
     <b>Empleados</b>
     <li><a href="{{url('admin/empleados/verClientes')}}">Ver mis clientes</a></li>
+    <li><a href="{{url('admin/empleados/historialConversaciones')}}">Historico conversaciones</a></li>
 </ul>
