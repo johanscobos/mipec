@@ -2,5 +2,10 @@
 @section('content')
 
 
-<p>dos</p>
+@foreach($cliente as $cliente)
+
+<ul>
+	<li>{{$cliente->nombres}}</li>
+</ul>
+@endforeach
 @endsection
