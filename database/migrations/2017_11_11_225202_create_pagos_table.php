@@ -29,6 +29,9 @@ class CreatePagosTable extends Migration
 
             $table->integer('servicio_id')->unsigned();
             $table->foreign('servicio_id')->references('id')->on('servicios');
+
+            $table->string('referenceCode',255);
+
             $table->timestamps();
         });
     }
