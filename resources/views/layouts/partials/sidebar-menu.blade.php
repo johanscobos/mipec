@@ -3,13 +3,19 @@
 	
 
 <ul class="lista">
-
+    @can('crearUsuarios')
 	<b>Administrador</b><br>
 
     <li><a href="{{url('admin/administrador/create')}}">Crear Usuarios</a></li>
-    <li><a href="{{url('admin/servicios/create')}}">Crear Servicios</a></li>
-    <li><a href="{{url('admin/administrador/clienteEmpleado')}}">Asignar empleado a cliente</a></li>
+    @endcan
 
+    @can('crearServicio')
+    <li><a href="{{url('admin/servicios/create')}}">Crear Servicios</a></li>
+        @endcan
+
+   @can('asociarEmpleadoCliente')
+    <li><a href="{{url('admin/administrador/clienteEmpleado')}}">Asignar empleado a cliente</a></li>
+   @endcan
     <li><a href="{{url('admin/clientes/asignarservicio')}}">Asignar servicio a cliente</a></li>
     <li><a href="{{url('/clientes/pagos')}}">Listar Pagos de Clientes</a></li>
 
