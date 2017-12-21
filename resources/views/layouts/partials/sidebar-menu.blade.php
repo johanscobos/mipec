@@ -1,5 +1,11 @@
+
+<ul>
+	
+
 <ul class="lista">
+
 	<b>Administrador</b><br>
+
     <li><a href="{{url('admin/administrador/create')}}">Crear Usuarios</a></li>
     <li><a href="{{url('admin/servicios/create')}}">Crear Servicios</a></li>
     <li><a href="{{url('admin/administrador/clienteEmpleado')}}">Asignar empleado a cliente</a></li>
@@ -18,7 +24,9 @@
 
     <b>Empleados</b>
     <li><a href="{{url('admin/empleados/verClientes')}}">Ver mis clientes</a></li>
+    <li><a href="{{url('admin/empleados/historialConversaciones')}}">Historico conversaciones</a></li>
 </ul>
 
 
+    
 

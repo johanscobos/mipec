@@ -15,6 +15,14 @@
     {!!Form::label('tipo_user', 'Tipo de usuario');!!}
     {!!Form::select('tipo_user',[-1=>'seleccione una opcion',1 => 'Cliente', 0 => 'Empleado' ],null, $attributes=['required']);  !!}
     <br>
+    {!!Form::label('roles', 'Rol: ');!!}
+            <select name="roles">
+        @foreach($roles  as $rol)
+            <option value= {{$rol->id}}>{{$rol->name }}</option>
+        @endforeach
+        </select>
+        <br>
+
     {!!Form::label('password', 'Contraseña');!!}
     {!!Form::password('password', ['class' => 'awesome form-control']);!!}
 

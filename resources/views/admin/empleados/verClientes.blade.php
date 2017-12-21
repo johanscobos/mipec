@@ -5,6 +5,7 @@
 
 
 
+
 <table class="table table-striped">
 	<thead>
 	<tr>
@@ -21,12 +22,11 @@
 			<th scope="row">{{$cliente->id}}</th>
 			<td>{{$cliente->nombres. ' '.$cliente->apellidos}}</td>
 			<td>{{$cliente->cedula}}</td>
-            <td><a href="" class="btn btn-warning">D</a></td>
+            <td><a href="{{route('conclusiones')}}" class="btn btn-warning">D</a></td>
 
 
 		</tr>
 	@endforeach
 	</tbody>
 </table>
-
 @endsection
