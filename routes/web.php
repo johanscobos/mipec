@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
 
 });
 
@@ -30,11 +35,15 @@ Route::get('/clientes/pagos/bajar_planilla/{id}', 'PagosController@descargar_pla
 
 
 
+
+
 Route::get('/clientes/pagos/ver_pagos/','PagosController@mispagos')->name('clientes.pagos.ver_pagos');
 
 //Route::get('/admin/clientes/descargar_planilla', 'PagosController@descargar_planilla')->name('clientes.descargar_planilla');
 Route::post('/admin/clientes/activar_inactivar_servicio', 'ClientesController@activar_inactivar_servicio')->name('clientes.activar_inactivar_servicio');
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');
+
+Route::get('/clientes/pagos/confirmar_pago', 'PagosController@confirmar_pago');
 
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');
 

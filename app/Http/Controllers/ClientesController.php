@@ -90,7 +90,7 @@ class ClientesController extends Controller
         //enviar codeReferce
 
        $cliente=Cliente::find($cl);
-       $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'estado_pago' => '1','estado_servicio'=>'0']);
+       $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'estado_pago' => '0','estado_servicio'=>'0']);
         //$cliente->servicios()->save($servicioss_id, ['valor_pagar' => $request->valor_pagar,'estado_pago' => $request->estado_pago,'estado_servicio'=>$request->estado_pago]);
 
 

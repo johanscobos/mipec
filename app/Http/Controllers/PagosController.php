@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Pago;
 use App\Cliente;
 
@@ -171,4 +172,32 @@ class PagosController extends Controller
         $path = storage_path('app/'.$planilla);
         return response()->download($path);
     }
+
+    public function confirmar_pago(Request $request){
+        //dd("Hola");
+        $nombre = $request->input("nombre");
+
+        $referenceCode=9;
+        $response_code_pol=1;
+        $estado_pago=1;
+
+        if($response_code_pol==1){
+
+            $clservicios = DB::table('cliente_servicio')->where([['referenceCode', '=', $referenceCode]])->get();
+            //dd($clservicios);
+            $clservicios->estado_pago=$estado_pago;
+            $clservicios->save();
+
+
+            dd("La transaccion fue exitosa");
+
+
+        }
+        else{
+            dd("La transaccion no se realizó exitosamente");
+        }
+
+
+
+}
 }
