@@ -182,4 +182,10 @@ class adminController extends Controller
     {
         //
     }
+
+    public function cerrar_sesion(){
+
+        Auth::logout();
+       // return redirect('/admin/administrador/storeRelClEm');
+      }
 }

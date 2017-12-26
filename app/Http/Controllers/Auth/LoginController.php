@@ -36,4 +36,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    /*public function redirectPath(){
+
+       // dd('llegamos');
+        return redirect('/dashboard');
+
+    }*/
+
+
 }

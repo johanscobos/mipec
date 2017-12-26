@@ -12,17 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('home');
-
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-
 });
 
 
 Auth::routes();
+
+Route::get('/cerrar', 'AdminController@cerrar_sesion')->name('cerrar_sesion');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservicio');

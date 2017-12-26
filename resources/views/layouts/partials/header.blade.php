@@ -3,15 +3,15 @@
         <img src="/images/logo.png" width="110" height="30" alt="">
     </a>
     <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-            <div class="top-right links">
-                @auth
-                    <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                        @endauth
-            </div>
-        @endif
+
+        @if (Auth::check())
+            <p>El usuario está correctamente autenticado</p>
+            <a href="{{ route('login') }}">Cerrar Sesion</a>
+
+
+        @else
+            <p>El usuario no esta autenticado</p>
+            @endif
+
     </div>
 </nav>
