@@ -59,6 +59,7 @@ class adminController extends Controller
             $usuario->password=bcrypt( $request->input('password'));
 
             $usuario->save();
+            $usuario->assignRole($usuario->tipo_rol);
            // Flash::success("Se ha registrado el usuario ".$usuario->username." de manera exitosa!");
 
             $empleado= new Empleado();
@@ -74,6 +75,8 @@ class adminController extends Controller
             $empleado->estado= 1;
 
             $empleado->save();
+
+            return redirect('admin/administrador/show');
            
         }
 
@@ -88,7 +91,8 @@ class adminController extends Controller
             $usuario->password= bcrypt($request->input('password'));
 
             $usuario->save();
-
+            $usuario->assignRole($usuario->tipo_rol);
+            
             $cliente= new Cliente();
             $cliente->cedula=$request->input('cedula');
             $cliente->nombres=$request->input('nombres');
