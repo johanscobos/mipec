@@ -84,13 +84,24 @@ class ClientesController extends Controller
 
 
         $cl=$request->cliente_id;
+
         $serv=$request->servicio_id;
+
+        //:::::::::::::::::.cargo los datos para la generar la firma
+        $apikey="K4mvTeqzoeATzM5F72DVP3O8VO";
+        $merchantId="688911";
+        $amount=$request->valor_pagar;
+        $moneda="COP";
+
+        $firma=$apikey.'~'.$merchantId.'~'.$referenceCode.'~'.$amount.'~'.$moneda;
+        $signature=md5($firma);
+
 
         //sacar valor a pagar
         //enviar codeReferce
 
        $cliente=Cliente::find($cl);
-       $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'estado_pago' => '0','estado_servicio'=>'0']);
+       $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'signature' => $signature,'estado_pago' => '0','estado_servicio'=>'0']);
         //$cliente->servicios()->save($servicioss_id, ['valor_pagar' => $request->valor_pagar,'estado_pago' => $request->estado_pago,'estado_servicio'=>$request->estado_pago]);
 
 

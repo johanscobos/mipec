@@ -19,6 +19,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+Route::get('/prueba', function () {
+    return view('prueba');
+});
+
 
 Auth::routes();
 
@@ -43,7 +47,17 @@ Route::get('/clientes/pagos/ver_pagos/','PagosController@mispagos')->name('clien
 Route::post('/admin/clientes/activar_inactivar_servicio', 'ClientesController@activar_inactivar_servicio')->name('clientes.activar_inactivar_servicio');
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');
 
-Route::get('/clientes/pagos/confirmar_pago', 'PagosController@confirmar_pago');
+//pago
+//Route::get('/clientes/pagos/respuesta_pago', 'PagosController@respuesta_pago');
+
+Route::get('/clientes/pagos/respuesta_pago/{txt_value}', 'PagosController@respuesta_pago');
+
+/*Route::get('/clientes/pagos/respuesta_pago/{tx_value}', function ($tx_value) {
+    return  "el dato es {$tx_value}";
+});*/
+
+Route::post('/clientes/pagos/confirmar_pago', 'PagosController@confirmar_pago');
+
 
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');
 

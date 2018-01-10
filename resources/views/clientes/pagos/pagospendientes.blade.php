@@ -74,29 +74,23 @@
                     @endphp
                 </td>
                 <td>
-                {!! Form::open(['url' => 'https://gateway.payulatam.com/ppp-web-gateway/', 'method' => 'post']) !!}
+                {!! Form::open(['url' => 'https://sandbox.gateway.payulatam.com/ppp-web-gateway/', 'method' => 'post']) !!}
 
 
-                {!! Form::hidden('merchantId','688911') ; !!}
-                {!! Form::hidden('ApiKey','K4mvTeqzoeATzM5F72DVP3O8VO') ; !!}
-                {!! Form::hidden('referenceCode',$pp->referenceCode) ; !!}
-                {!! Form::hidden('description',$servicio->descripcion) !!}
-                {!! Form::hidden('amount',$pp->valor_pagar) !!}
+                {!! Form::hidden('merchantId','508029') ; !!}
+                {!! Form::hidden('ApiKey','4Vj8eK4rloUd272L48hsrarnUA') ; !!}
+                {!! Form::hidden('referenceCode','MIPEC36') ; !!}
+                {!! Form::hidden('description','MIPEC201') !!}
+                {!! Form::hidden('amount','160000') !!}
                 {!! Form::hidden('tax','0'); !!}
                 {!! Form::hidden('taxReturnBase','0') ; !!}
-                {!! Form::hidden('signature',$sign) ; !!}
-                {!! Form::hidden('accountId','691796') ; !!}
-                {!! Form::hidden('currency','COP') !!}<!-- COL -->
-                    {!! Form::hidden('buyerFullName',$cliente->nombres) !!}
-                    {!! Form::hidden('buyerEmail',$email) !!}
-                    {!! Form::hidden('shippingAddress',$cliente->direccion) !!}
-                    {!! Form::hidden('shippingCity',$cliente->ciudad_id) !!}
-                    {!! Form::hidden('shippingCountry','57') !!}
-                    {!! Form::hidden('telephone',$cliente->celular) !!}
-                    {!! Form::hidden('confirmationUrl','http://www.mipensionencolombia.com/confirmation') !!}
-
-
-
+                {!! Form::hidden('accountId','512326') ; !!}
+                {!! Form::hidden('currency','USD') !!}<!-- COL -->
+                {!! Form::hidden('signature','c2b89724981f68eba83655100f47a616') ; !!}
+                {!! Form::hidden('test','1') !!}
+                {!! Form::hidden('buyerEmail','test@test.com') !!}
+                {!! Form::hidden('responseUrl','http://app.mipensionencolombia.com/clientes/pagos/respuesta_pago') !!}
+                {!! Form::hidden('confirmationUrl','http://app.mipensionencolombia.com/clientes/pagos/confirmar_pago') !!}
 
                     {!! Form::submit('Pagar',['class' => 'btn btn-danger']); !!}
 
