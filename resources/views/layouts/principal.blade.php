@@ -8,6 +8,7 @@
 
     <link href="{{asset('/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('/css/layout.css')}}" rel="stylesheet">
+    <script src="https://use.fontawesome.com/a0b9ff5544.js"></script>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -34,6 +35,14 @@
 <!-- Scripts -->
 <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
+<script src="{{ asset('js/crud.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function()
+{
+    $("#exampleModal").modal("show");
+   
+});
+</script>
 @yield('scripts')
 </body>
 </html>

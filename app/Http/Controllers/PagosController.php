@@ -8,6 +8,7 @@ use App\Pago;
 use App\Cliente;
 
 
+
 class PagosController extends Controller
 {
     /**
@@ -18,8 +19,7 @@ class PagosController extends Controller
     public function index(Request $request)
     {
 
-        //dd($request->get('cedula'));
-
+      
         $pagos= Pago::buscar($request->get('cedula'))->orderBy('id','ASC')->paginate(10);
        return view('clientes.pagos.index')->with('pagos',$pagos);
     }
@@ -182,17 +182,27 @@ class PagosController extends Controller
 
         if($state_pol=='4')
         {
-            //...
+            $aprobado=1;
+
+        //$cliente=Cliente::where('cedula', '100000000')->get();
+        $cliente=Cliente::find(2);
+        $cliente->telefono='3430699';
+        $cliente->save();
+        dd("ok");
+        }
+
+        else{
+            dd("diferente de la opción 4");
         }
 
         $aprobado=1;
 
         //$cliente=Cliente::where('cedula', '100000000')->get();
-        $cliente=Cliente::find(2);
-        $cliente->telefono='3430651';
+       /* $cliente=Cliente::find(2);
+        $cliente->telefono='3430622';
         $cliente->save();
         dd("ok");
-
+*/
 
         //$clservicios = DB::table('cliente_servicio')->where([['referenceCode', '=', 'MIPEC23']])->update(['estado_pago' => $aprobado]);;
 
@@ -226,7 +236,7 @@ dd('ok');
 }
 
 public function respuesta_pago($txt_value){
-        //dd("Hola desde respues de formulario");
+        //dd("Hola desde respuesta de formulario");
         //dd($request->input("merchantId"));
         //$txt_value=$request->input("tx_value", 100);
    //dd($name = $request->input('dato'));
@@ -245,6 +255,9 @@ public function respuesta_pago($txt_value){
 $porcion=explode(".",$valor_formateado);
 //dd($decimal=$porcion[1]);
    $decimal=$porcion[1];
+
+
+
 
 /*if($decimal[0]==0){
     dd("es correcto");

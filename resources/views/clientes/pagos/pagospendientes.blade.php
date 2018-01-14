@@ -79,14 +79,14 @@
 
                 {!! Form::hidden('merchantId','508029') ; !!}
                 {!! Form::hidden('ApiKey','4Vj8eK4rloUd272L48hsrarnUA') ; !!}
-                {!! Form::hidden('referenceCode','MIPEC36') ; !!}
-                {!! Form::hidden('description','MIPEC201') !!}
-                {!! Form::hidden('amount','160000') !!}
+                {!! Form::hidden('referenceCode','MIPEC40') ; !!}
+                {!! Form::hidden('description','MIPEC202') !!}
+                {!! Form::hidden('amount','50') !!}
                 {!! Form::hidden('tax','0'); !!}
                 {!! Form::hidden('taxReturnBase','0') ; !!}
                 {!! Form::hidden('accountId','512326') ; !!}
                 {!! Form::hidden('currency','USD') !!}<!-- COL -->
-                {!! Form::hidden('signature','c2b89724981f68eba83655100f47a616') ; !!}
+                {!! Form::hidden('signature','d34516430919b3adb40c142a968050de') ; !!}
                 {!! Form::hidden('test','1') !!}
                 {!! Form::hidden('buyerEmail','test@test.com') !!}
                 {!! Form::hidden('responseUrl','http://app.mipensionencolombia.com/clientes/pagos/respuesta_pago') !!}
@@ -95,10 +95,6 @@
                     {!! Form::submit('Pagar',['class' => 'btn btn-danger']); !!}
 
                     {!! Form::close() !!}
-
-
-
-
 
                 </td>
             </tr>

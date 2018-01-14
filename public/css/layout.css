@@ -3,6 +3,9 @@ body {
     min-height: 100%;
     min-height: 100vh;
 }
+h1{
+    color: #333;
+}
 .bg-header{
     background-color: #00599e;
 }
@@ -38,3 +41,23 @@ body {
     width:85%;
     padding: 5px;
 }
+.mix-top{
+    border-bottom: 1px solid #ccc;
+    padding: 1em 0em;
+}
+.bg-table{
+    background-color: #E0E0E0;
+   
+}
+.cabez-table{
+    margin-top: 2em;
+}
+
+.cabez-table td{
+    border-top:1px solid #ccc;
+    border-bottom: :1px solid #E0E0E0;     
+}
+.cabez-table tr:hover{
+    background-color: #E0E0E0;
+}
+

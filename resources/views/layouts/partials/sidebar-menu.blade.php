@@ -28,6 +28,10 @@
     <li><a href="">Eliminar Servicios</a></li>
     @endcan
 
+    @can('listar_servicios')
+    <li><a href="{{url('admin/servicios')}}">Listar Servicios</a></li>
+    @endcan
+
     @can('asignarServicio')
     <li><a href="{{url('admin/clientes/asignarservicio')}}">Asignar servicio a cliente</a></li>
     @endcan

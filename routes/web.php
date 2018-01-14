@@ -11,6 +11,8 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -22,6 +24,7 @@ Route::get('/dashboard', function () {
 Route::get('/prueba', function () {
     return view('prueba');
 });
+
 
 
 Auth::routes();
@@ -50,13 +53,22 @@ Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendiente
 //pago
 //Route::get('/clientes/pagos/respuesta_pago', 'PagosController@respuesta_pago');
 
+
+//Esta es la ruta de confirmacion de pago con tarjeta de crédito y tiene la excepcion de proteccion de token CSRF en el archivo: Http/middleware/VeryCsrfToken.php
+Route::post('/clientes/pagos/confirmar_pago', 'PagosController@confirmar_pago')->name('confirmar_pago');
+
 Route::get('/clientes/pagos/respuesta_pago/{txt_value}', 'PagosController@respuesta_pago');
 
 /*Route::get('/clientes/pagos/respuesta_pago/{tx_value}', function ($tx_value) {
     return  "el dato es {$tx_value}";
 });*/
 
-Route::post('/clientes/pagos/confirmar_pago', 'PagosController@confirmar_pago');
+
+
+
+
+
+
 
 
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');

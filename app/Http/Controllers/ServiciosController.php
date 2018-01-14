@@ -12,9 +12,16 @@ class ServiciosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+       // dd("Hola desde index");
+        $servicios= Servicio::buscar($request->get('dato'))->orderBy('id','ASC')->paginate(10);
+        return view('admin.servicios.index')->with('servicios',$servicios);
+       //$servicios=Servicio::all();
+       //return view('admin.servicios.index');
+
+       
+
     }
 
     /**

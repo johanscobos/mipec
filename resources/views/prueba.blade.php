@@ -9,11 +9,11 @@
 
     <h2>prueba</h2>
 
-    {!! Form::open(['url' => '/clientes/pagos/confirmar_pago', 'method' => 'post']) !!}
+    {!! Form::open(['url' => 'http://app.mipensionencolombia.com/clientes/pagos/confirmar_pago', 'method' => 'post']) !!}
 
     {!! Form::label('state_pol','Estado de pago') ; !!}
     {!! Form::text('state_pol') ; !!}
-    {!! Form::label('reference_sale','Estado de pago') ; !!}
+    {!! Form::label('reference_sale','Reference Saless') ; !!}
     {!! Form::text('reference_sale') ; !!}
 
 
