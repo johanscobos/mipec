@@ -32,9 +32,12 @@ Auth::routes();
 Route::get('/cerrar', 'AdminController@cerrar_sesion')->name('cerrar_sesion');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservicio');
+Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservicio')->name('asignar_servicio');
 
-Route::get('/admin/clientes/servicios', 'ClientesController@servicios');
+
+Route::get('/admin/clientes/servicios', 'ClientesController@servicios');// esta rara
+
+Route::get('/admin/servicios/pagospendintes', 'ClientesController@pagospendientes')->name('pagos_pendientes');
 
 Route::get('/admin/clientes/gestionar_servicios', 'ClientesController@gestionar_servicios')->name('clientes.gestionar_servicios');
 Route::put('/admin/clientes/subir_planilla', 'PagosController@subir_planilla')->name('clientes.subir_planilla');
@@ -88,6 +91,7 @@ Route::get('/admin/empleados/conclusionEmpCli', 'empleadosController@mostrarConc
 Route::get('/admin/empleados/historialConversaciones', 'empleadosController@historialConclusion')->name('historial');
 
 Route::get('/admin/empleados/verClientes', 'empleadosController@visualizarClientes')->name('verClientes');
+
 Route::group(['prefix' =>'admin'], function (){
     Route::resource('servicios','ServiciosController');
     Route::resource('clientes','ClientesController');

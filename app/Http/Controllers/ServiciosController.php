@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Servicio;
+use Laracasts\Flash\Flash;
 
 class ServiciosController extends Controller
 {
@@ -14,14 +15,9 @@ class ServiciosController extends Controller
      */
     public function index(Request $request)
     {
-       // dd("Hola desde index");
+
         $servicios= Servicio::buscar($request->get('dato'))->orderBy('id','ASC')->paginate(10);
         return view('admin.servicios.index')->with('servicios',$servicios);
-       //$servicios=Servicio::all();
-       //return view('admin.servicios.index');
-
-       
-
     }
 
     /**
@@ -44,6 +40,7 @@ class ServiciosController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => 'required',
+            'descripcion' => 'required',
 
         ]);
 
@@ -51,6 +48,7 @@ class ServiciosController extends Controller
         $servicio=new Servicio;
         $servicio->nombre=$request->nombre;
         $servicio->descripcion=$request->descripcion;
+        $servicio->valor=$request->valor;
         $servicio->save();
 
         flash('El servicio se creó satisfactoriamente!!.')->success();
@@ -78,7 +76,10 @@ class ServiciosController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $servicio = Servicio::find($id);
+        return view('admin.servicios.edit')->with('servicio',$servicio);
+        //dd($servicio);
     }
 
     /**
@@ -90,7 +91,13 @@ class ServiciosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $servicio = Servicio::find($id);
+        $servicio->nombre = $request->nombre;
+        $servicio->descripcion = $request->descripcion;
+        $servicio->save();
+
+        flash('El servicio '.$servicio->nombre. ' ha sido actualizado con éxito!!')->success();
+        return redirect()->route('servicios.index');
     }
 
     /**
@@ -100,7 +107,9 @@ class ServiciosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   $servicio=Servicio::find($id);
+        $servicio->delete();
+        flash('El servicio '.$servicio->nombre. ' ha sido eliminado satisfactoriamente!!')->success();
+        return redirect()->route('servicios.index');
     }
 }

@@ -18,9 +18,10 @@ class adminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $users= User::buscar($request->get('dato'))->orderBy('id','ASC')->paginate(10);
+        return view('admin.listar_usuarios')->with('users',$users);
     }
 
     /**

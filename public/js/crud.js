@@ -1,87 +1,276 @@
-var url = "http://localhost:8000/producto";
+var page = 1;
 
-// muestra el formulario modal para la edición del producto
-$(document).on('click', '.open_modal', function () {
-    var producto_id = $(this).val();
+var current_page = 1;
 
-    $.get(url + '/' + producto_id, function (data) {
-        //success data
-        console.log(data);
-        $('#producto_id').val(data.id);
-        $('#nombre').val(data.nombre);
-        $('#descripcion').val(data.descripcion);
-        $('#btn-save').val("update");
-        $('#myModal').modal('show');
-    })
-});
-// muestra el formulario modal para crear un nuevo producto
-$('#btn_add').click(function () {
-    $('#btn-save').val("add");
-    $('#frmproductos').trigger("reset");
-    $('#myModal').modal('show');
-});
-// eliminar el producto y eliminarlo de la lista
-$(document).on('click', '.delete-producto', function () {
-    var producto_id = $(this).val();
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    })
+var total_page = 0;
+
+var is_ajax_fire = 0;
+
+
+
+
+manageData();
+
+
+
+
+/* manage data list */
+
+function manageData() {
+
+
+
     $.ajax({
-        type: "DELETE",
-        url: url + '/' + producto_id,
-        success: function (data) {
-            console.log(data);
-            $("#producto" + producto_id).remove();
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
-    });
-});
-// crear nuevo producto / actualizar producto existente
-$("#btn-save").click(function (e) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    })
-    e.preventDefault();
-    var formData = {
-        nombre: $('#nombre').val(),
-        descripcion: $('#descripcion').val(),
-    }
-    // utilizado para determinar el metodo http que se va a utilizar [add = POST], [update = PUT]
-    var state = $('#btn-save').val();
-    var type = "POST"; // para crear un nuevo recurso
-    var producto_id = $('#producto_id').val();;
-    var my_url = url;
-    if (state == "update") {
-        type = "PUT"; // para actualizar recursos existentes
-        my_url += '/' + producto_id;
-    }
-    console.log(formData);
-    $.ajax({
-        type: type,
-        url: my_url,
-        data: formData,
+
         dataType: 'json',
-        success: function (data) {
-            console.log(data);
-            var producto = '<tr id="producto' + data.id + '"><td>' + data.id + '</td><td>' + data.nombre + '</td><td>' + data.descripcion + '</td>';
-            producto += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Editar</button>';
-            producto += ' <button class="btn btn-danger btn-delete delete-producto" value="' + data.id + '">Eliminar</button></td></tr>';
-            if (state == "add") { // para actualizar recursos existentes...
-                $('#productos-list').append(producto);
-            } else { // si el usuario actualiza un registro existente
-                $("#producto" + producto_id).replaceWith(producto);
+
+        url: url,
+
+        data: {page:page}
+
+    }).done(function(data){
+
+
+
+        total_page = data.last_page;
+
+        current_page = data.current_page;
+
+
+
+        $('#pagination').twbsPagination({
+
+            totalPages: total_page,
+
+            visiblePages: current_page,
+
+            onPageClick: function (event, pageL) {
+
+                page = pageL;
+
+                if(is_ajax_fire != 0){
+
+                    getPageData();
+
+                }
+
             }
-            $('#frmproductos').trigger("reset");
-            $('#myModal').modal('hide')
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
+
+        });
+
+
+
+        manageRow(data.data);
+
+        is_ajax_fire = 1;
+
     });
+
+}
+
+
+
+
+$.ajaxSetup({
+
+    headers: {
+
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+    }
+
+});
+
+
+
+
+/* Get Page Data*/
+
+function getPageData() {
+
+    $.ajax({
+
+        dataType: 'json',
+
+        url: url,
+
+        data: {page:page}
+
+    }).done(function(data){
+
+        manageRow(data.data);
+
+    });
+
+}
+
+
+
+
+/* Add new Post table row */
+
+function manageRow(data) {
+
+    var	rows = '';
+
+    $.each( data, function( key, value ) {
+
+        rows = rows + '<tr>';
+
+        rows = rows + '<td>'+value.title+'</td>';
+
+        rows = rows + '<td>'+value.details+'</td>';
+
+        rows = rows + '<td data-id="'+value.id+'">';
+
+        rows = rows + '<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Edit</button> ';
+
+        rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+
+        rows = rows + '</td>';
+
+        rows = rows + '</tr>';
+
+    });
+
+    $("tbody").html(rows);
+
+}
+
+
+
+
+/* Create new Post */
+
+$(".crud-submit").click(function(e){
+
+    e.preventDefault();
+
+    var form_action = $("#create-item").find("form").attr("action");
+
+    var title = $("#create-item").find("input[name='title']").val();
+
+    var details = $("#create-item").find("textarea[name='details']").val();
+
+
+
+    $.ajax({
+
+        dataType: 'json',
+
+        type:'POST',
+
+        url: form_action,
+
+        data:{title:title, details:details}
+
+    }).done(function(data){
+
+        getPageData();
+
+        $(".modal").modal('hide');
+
+        toastr.success('Post Created Successfully.', 'Success Alert', {timeOut: 5000});
+
+    });
+
+});
+
+
+
+
+/* Remove Post */
+
+$("body").on("click",".remove-item",function(){
+
+    var id = $(this).parent("td").data('id');
+
+    var c_obj = $(this).parents("tr");
+
+
+
+    $.ajax({
+
+        dataType: 'json',
+
+        type:'delete',
+
+        url: url + '/' + id,
+
+    }).done(function(data){
+
+
+
+        c_obj.remove();
+
+        toastr.success('Post Deleted Successfully.', 'Success Alert', {timeOut: 5000});
+
+        getPageData();
+
+
+
+    });
+
+});
+
+
+
+
+/* Edit Post */
+
+$("body").on("click",".edit-item",function(){
+
+    var id = $(this).parent("td").data('id');
+
+    var title = $(this).parent("td").prev("td").prev("td").text();
+
+    var details = $(this).parent("td").prev("td").text();
+
+
+
+    $("#edit-item").find("input[name='title']").val(title);
+
+    $("#edit-item").find("textarea[name='details']").val(details);
+
+    $("#edit-item").find("form").attr("action",url + '/' + id);
+
+});
+
+
+
+
+/* Updated new Post */
+
+$(".crud-submit-edit").click(function(e){
+
+    e.preventDefault();
+
+    var form_action = $("#edit-item").find("form").attr("action");
+
+    var title = $("#edit-item").find("input[name='title']").val();
+
+    var details = $("#edit-item").find("textarea[name='details']").val();
+
+
+
+    $.ajax({
+
+        dataType: 'json',
+
+        type:'PUT',
+
+        url: form_action,
+
+        data:{title:title, details:details}
+
+    }).done(function(data){
+
+        getPageData();
+
+        $(".modal").modal('hide');
+
+        toastr.success('Post Updated Successfully.', 'Success Alert', {timeOut: 5000});
+
+    });
+
 });

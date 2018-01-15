@@ -19,9 +19,7 @@ h1{
     min-height: 100vh;
 }
 
-.lista{display: block;list-style: none;}
-.lista li{display:block;text-decoration: none;text-underline: none;}
-.lista li a{color: #ffffff}
+
 
 
 .footer{
@@ -35,7 +33,7 @@ h1{
 
 .sidebar{
     width: 20%;
-    padding: 5px;
+
 }
 .contenido{
     width:85%;
@@ -60,4 +58,35 @@ h1{
 .cabez-table tr:hover{
     background-color: #E0E0E0;
 }
+.flex-crud{
+    display: flex;
+}
+.flex-crud_item{
+    padding: 0em 0.5em;
+}
 
+
+/*:::::::::::::::::::::menu principal:::::::::::::::::*/
+ul, menu, dir{
+    -webkit-margin-before: 0em;
+    -webkit-margin-after:0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+.color{
+    color:#ffffff;
+}
+.menu-principal{display: block;list-style: none;}
+
+.menu-principal li{
+    display:block;text-decoration: none;
+    padding: 0.5em;
+    border: solid 1px #4a4a4a;
+}
+
+.menu-principal li a{color: #ffffff;text-decoration:none; }
+.menu-principal li:hover{
+    background-color: #2b2b2b;
+
+}

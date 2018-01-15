@@ -69,8 +69,6 @@
                     // dd($firm);
 
 
-
-
                     @endphp
                 </td>
                 <td>
