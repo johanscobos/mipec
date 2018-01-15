@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Cliente;
 use App\Servicio;
 
+
 class ClientesController extends Controller
 {
     /**
@@ -21,7 +22,6 @@ class ClientesController extends Controller
     {
         $clientes= Cliente::buscar($request->get('dato'))->orderBy('id','ASC')->paginate(10);
         return view('admin.clientes.index')->with('clientes',$clientes);
-
     }
 
     /**
@@ -322,4 +322,31 @@ class ClientesController extends Controller
 
     }
 
+
+/*:::::::::::::::::Busquedas de autocompletado:::::::::::::::::::::::*/
+    public function layout()
+    {
+        return view('admin.clientes.asignarservicio');
+
+    }
+
+
+    /**
+     * Show the application dataAjax.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dataAjax(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $data = DB::table("clientes")
+                    ->select("id","nombres")
+                    ->where('nombres','LIKE',"%$search%")
+                    ->get();
+        }
+        return response()->json($data);
+    }
 }

@@ -106,3 +106,7 @@ Route::group(['prefix' =>'clientes'], function (){
     Route::resource('pagos','PagosController');
 
 });
+
+
+Route::get('select2-autocomplete', 'ClientesController@layout');
+Route::get('select2-autocomplete-ajax', 'ClientesController@dataAjax');
