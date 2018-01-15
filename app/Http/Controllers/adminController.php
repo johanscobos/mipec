@@ -9,6 +9,7 @@ use App\Empleado;
 use App\Cliente;
 use App\User;
 use Spatie\Permission\Models\Role;
+use Mail;
 
 
 class adminController extends Controller
@@ -60,6 +61,14 @@ class adminController extends Controller
 
             $usuario->save();
             $usuario->assignRole($usuario->tipo_rol);
+            $infoUsuario= $usuario->toArray();
+            $correo=User::select('email')->orderBy('email','asc')->take(1)->get();      
+              $correoStr=(string)$correo;
+            $user = User::orderby('created_at','DESC')->take(1)->get();
+            
+           Mail::send('email', $infoUsuario, function($message, $correoStr, $user){
+            
+            $message->to($correoStr)->subject($user);});
            // Flash::success("Se ha registrado el usuario ".$usuario->username." de manera exitosa!");
 
             $empleado= new Empleado();
@@ -75,7 +84,7 @@ class adminController extends Controller
             $empleado->estado= 1;
 
             $empleado->save();
-
+            
             return redirect('admin/administrador/show');
            
         }
@@ -92,7 +101,15 @@ class adminController extends Controller
 
             $usuario->save();
             $usuario->assignRole($usuario->tipo_rol);
-            
+            $infoUsuario= $usuario->toArray();
+            $correo=User::select('email')->orderBy('email','asc')->take(1)->get();      
+              $correoStr=(string)$correo;
+            $user = User::orderby('created_at','DESC')->take(1)->get();
+                
+             Mail::send('email', $data, function($message, $correoStr, $user){
+            $message->to($correo)->subject($user);});
+
+         
             $cliente= new Cliente();
             $cliente->cedula=$request->input('cedula');
             $cliente->nombres=$request->input('nombres');
