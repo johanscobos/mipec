@@ -40,5 +40,14 @@ class User extends Authenticatable
         return $this->hasOne('App\Empleado');
     }
 
+    public function scopeBuscar($query,$dato){
+        //Si $dato es diferente de "", ejecuto  la consulta
+        //con "trim" elimino los espacios recibidos con $dato
+        // con el método LIKE hago puedo hacer busquedas con una fracción de una palabra, ejemplo: col
+        if(trim($dato) !=""){
+            $query->where('username',"LIKE","%$dato%");
+        }
+    }
+
 
 }

@@ -3,9 +3,8 @@
 @endphp
 
 @extends('layouts.principal')
-@section('title','Clientes - Pagos de clientes')
+@section('title','Servicios')
 @section('content')
-
 
 
 <div class="container">
@@ -27,8 +26,8 @@
 
   </div>
   <div class="col-2">
-      <a href="{{url('admin/servicios/create')}}" class="btn btn-primary">Crear servicio</a>
-      <button id="btn_add" name="btn_add" class="btn btn-primary pull-right">Nuevo Producto</button>
+      <a href="{{route('servicios.create')}}" class="btn btn-crear btn-primary">Crear servicio</a>
+
   </div>
 </div>
 
@@ -38,19 +37,26 @@
         <thead class="thead-dark bg-table">
         <tr>            
             <th scope="col">Nombre</th>
-            <th scope="col">Descripción</th>  
+            <th scope="col">Descripción</th>
+            <th scope="col">Valor $</th>
             <th scope="col">Acciones</th>                         
         </tr>
         </thead>
         <tbody>
         @foreach($servicios as $servicio)
-            <tr>
+            <tr data-id="{{$servicio->id}}">
                 <td>{{$servicio->nombre}}</td>
                 <td>{{$servicio->descripcion}}</td>
-                <td>
-                    <a href="{{route('clientes.pagos.bajar_planilla',$servicio->id)}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a href="" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                    
+                <td>{{$servicio->valor}}</td>
+                <td class="flex-crud">
+                    <div class="flex-crud_item">
+                        <a href="{{route('servicios.edit',$servicio->id)}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="flex-crud_item">
+                        {!! Form::open(['route' => ['servicios.destroy', $servicio->id],'method' => 'delete']) !!}
+                        <button type="submit" class="btn btn-delete btn-danger" onclick="return confirm('¿Está seguro que desea eliminar el servicio?')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        {!! Form::close() !!}
+                    </div>
                 </td>
             </tr>
         @endforeach
@@ -58,40 +64,9 @@
     </table>
   </div>
 </div>
-
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-    <div class="modal-content">
-     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-      <h4 class="modal-title" id="myModalLabel">Producto</h4>
-     </div>
-     <div class="modal-body">
-      <form id="frmproductos" name="frmproductos" class="form-horizontal" novalidate="">
-       <div class="form-group error">
-        <label for="inputName" class="col-sm-3 control-label">Nombre</label>
-        <div class="col-sm-9">
-         <input type="text" class="form-control has-error" id="nombre" name="nombre" placeholder="Product Name" value="">
-        </div>
-       </div>
-       <div class="form-group">
-        <label for="inputDetail" class="col-sm-3 control-label">Descripcion</label>
-        <div class="col-sm-9">
-         <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="details" value="">
-        </div>
-       </div>
-      </form>
-     </div>
-     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" id="btn-save" value="add">Guardar</button>
-      <input type="hidden" id="producto_id" name="producto_id" value="0">
-     </div>
-    </div>
-   </div>
-  </div>
-
+</div>
 
 @endsection
+
+
 

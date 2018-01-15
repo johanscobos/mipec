@@ -18,8 +18,10 @@ class ClientesController extends Controller
 
 
     public function index()
-    {   
-        
+    {
+        $clientes= Cliente::buscar($request->get('dato'))->orderBy('id','ASC')->paginate(10);
+        return view('admin.clientes.index')->with('clientes',$clientes);
+
     }
 
     /**
@@ -55,8 +57,7 @@ class ClientesController extends Controller
         //$cliente->servicio_id=$request->servicio_id;
 
 
-        //buscar el ultimo registro de cliente_servicio y sacar el valor de referenceCode
-// esto hay que mejorarlo::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        //Se busca el último registro de la tabla "cliente_servicio" para obtener el valor de "referenceCode"
         $max_id = DB::table('cliente_servicio')->max('id');
         //dd($max_id);
 
@@ -66,43 +67,50 @@ class ClientesController extends Controller
         ])->first();
 
         if($ultimo=="")
-        {
-            $ultimo_reference=0;
+        {    //no existen servicios asignados, entonces se crea en 0
+            $ultimo_reference='MIPEC-0';
         }
         else{
-            //dd($ultimo->referenceCode);
+            //traigo la ultima referencia
             $ultimo_reference=$ultimo->referenceCode;
         }
 
-        //$ultimo= $clservicios->referenceCode;
-        //dd($ultimo);
-        //$prefijo="MIPEC";
-        $referenceCode=$ultimo_reference+1;
-        //dd($datoRef);
-        //$referenceCode=$datoRef;
-        //dd($referenceCode);
+        //divido la ultima referencia para poder sumarle 1 al postfijo
+        $porcion=explode("-",$ultimo_reference);
+        $prefijo=$porcion[0];
+        $postfijo=$porcion[1];
+        $nuevo_postfijo=$postfijo+1;
+
+        //creo la nueva referencia
+        $referenceCode=$prefijo.'-'.$nuevo_postfijo;
 
 
         $cl=$request->cliente_id;
 
         $serv=$request->servicio_id;
 
-        //:::::::::::::::::.cargo los datos para la generar la firma
-        $apikey="K4mvTeqzoeATzM5F72DVP3O8VO";
-        $merchantId="688911";
-        $amount=$request->valor_pagar;
-        $moneda="COP";
+        //:::::cargo los datos para generar la "signature", única para cada referencia creada
 
-        $firma=$apikey.'~'.$merchantId.'~'.$referenceCode.'~'.$amount.'~'.$moneda;
-        $signature=md5($firma);
+            //apikey es una constante
+            $apikey="K4mvTeqzoeATzM5F72DVP3O8VO";
 
+            //merchantId es una constante
+            $merchantId="688911";
+            $amount=$request->valor_pagar;
 
-        //sacar valor a pagar
-        //enviar codeReferce
+            //moneda es una constante
+            $moneda="COP";
 
+            $firma=$apikey.'~'.$merchantId.'~'.$referenceCode.'~'.$amount.'~'.$moneda;
+            $signature=md5($firma);
+
+        //:::::::::::::::::::::::::::::::::::::::::::::::::::
+
+        //se instancia el modelo de cliente
        $cliente=Cliente::find($cl);
+
+       //se guardan los datos en la tabla
        $cliente->servicios()->attach($serv,['descripcion_variable' => $request->descripcion_variable,'valor_pagar' => $request->valor_pagar,'referenceCode' => $referenceCode,'signature' => $signature,'estado_pago' => '0','estado_servicio'=>'0']);
-        //$cliente->servicios()->save($servicioss_id, ['valor_pagar' => $request->valor_pagar,'estado_pago' => $request->estado_pago,'estado_servicio'=>$request->estado_pago]);
 
 
         flash('El servicio se asignó satisfactoriamente!!.')->success();
