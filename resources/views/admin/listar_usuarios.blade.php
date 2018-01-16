@@ -75,5 +75,5 @@
             </div>
         </div>
     </div>
-
+    @include('layouts.partials.scripts')
 @endsection

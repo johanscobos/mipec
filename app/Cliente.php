@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Servicio;
 
 class Cliente extends Model
 {
@@ -41,6 +42,7 @@ class Cliente extends Model
         return $this->belongsTo('App\Ciudad');
     }
 
+  
     public function scopeBuscar($query, $cedula){
 
         //$roles = User::find($name)->roles;

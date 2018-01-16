@@ -2,66 +2,56 @@
 @section('title','Clientes - Asignar Servicios')
 @section('content')
 
-    <h2>Asignar Servicios</h2>
-    @include('flash::message')
-    {!! Form::open(['route' => 'clientes.store', 'method' => 'post']) !!}
-    @foreach($errors->all() as $error)
-        <p class="alert alert-danger">{{$error}}</p>
-    @endforeach
+    <div class="container top">
+        <div class="row mix-top">
+            <div class="col-12">
+                <h1>Asignar Servicio a Cliente</h1>
+                @include('flash::message')
+                {!! Form::open(['route' => 'clientes.store', 'method' => 'post']) !!}
+                @foreach($errors->all() as $error)
+                    <p class="alert alert-danger">{{$error}}</p>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div>
                 <div class="form-group">
-                    {!!Form::label('clientes', 'Nombre del cliente');!!}
-                    {!! Form::select('cliente_id',$clientes, ['class' => 'form-control']) !!}
+                    {!!Form::label('clientes', 'Nombre del Cliente');!!}<br>
+                    {!! Form::select('cliente_id',$clientes, null, ['placeholder' => 'Busque un cliente','class'=>'cll form-control']) !!}
 
-                     <select class="itemName form-control" style="width:500px;" name="itemName"></select>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('servicios', 'Nombre del Servicio');!!}
-                    {!! Form::select('servicio_id',$servicios, ['class' => 'form-control']) !!}
+                    {!!Form::label('servicios', 'Nombre del Servicio');!!}<br>
+                    {!! Form::select('servicio_id',$servicios,null, ['placeholder' => 'Elija un servicio','class' => 'servicio form-control','id'=>'ser']) !!}
                 </div>
                 <div class="form-group">
-                    {!!Form::label('valor_pagar', 'Valor del servicio');!!}
-                    {!! Form::number('valor_pagar',null, ['class' => 'form-control']) !!}
+                    {!!Form::label('valor_pagar', 'Valor del servicio $');!!}
+                    {!! Form::text('valor_pagar',null, ['class' => 'form-control','id'=>'valor']) !!}
                 </div>
                 <div class="form-group">
                     {!!Form::label('descripcion_variable', 'Descripcion variable');!!}
-                    {!! Form::text('descripcion_variable',null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('descripcion_variable',null, ['class' => 'form-control']) !!}
                 </div>
 
                 <br>
-                {!! Form::submit('Enviar',['class' => 'btn btn-primary']); !!}
+                {!! Form::submit('Asignar',['class' => 'btn btn-primary']); !!}
                 {!! Form::close() !!}
 
             </div>
         </div>
     </div>
 
-  <script type="text/javascript">
+    @include('layouts.partials.scripts')
+
+    <script src="{{asset('js/dropdown.js')}}"></script>
 
 
-      $('.itemName').select2({
-        placeholder: 'Select an item',
-        ajax: {
-          url: '/select2-autocomplete-ajax',
-          dataType: 'json',
-          delay: 250,
-          processResults: function (data) {
-            return {
-              results:  $.map(data, function (item) {
-                    return {
-                        text: item.nombres,
-                        id: item.id
-                    }
-                })
-            };
-          },
-          cache: true
-        }
-      });
-
-
-</script>
+    <script type="text/javascript">
+        $('.cll').select2();
+        $('.servicio').select2();
+    </script>
 
 @endsection

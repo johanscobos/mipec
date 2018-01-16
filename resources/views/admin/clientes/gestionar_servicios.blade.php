@@ -96,4 +96,6 @@
     @else
         <b>NO hay servicios asociados para clientes con este documento!!</b>
     @endif
+    @include('layouts.partials.scripts')
+
 @endsection

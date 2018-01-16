@@ -72,7 +72,7 @@ Route::get('/clientes/pagos/respuesta_pago/{txt_value}', 'PagosController@respue
 
 
 
-
+Route::get('/admin/clientes/valor/{id}', 'ClientesController@getValor');
 
 Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendientes')->name('clientes.pagospendientes');
 

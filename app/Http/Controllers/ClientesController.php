@@ -165,14 +165,25 @@ class ClientesController extends Controller
     //Método que talllllllllllllllllllllllllllllllllllllll
     public function asignarservicio()
     {
-        $clientes = DB::table('clientes')->pluck('nombres', 'id');
+        //se concatena el nombre y apellido de los clientes antes de enviarlos con 'pluck'
+        $clientes  = DB::table('clientes')
+            ->select(
+                DB::raw("CONCAT(nombres,' ',apellidos) AS fullname"),'id')->pluck('fullname', 'id');
+
+
+       // $clientes = Cliente::pluck('nombres','id');
         $servicios = DB::table('servicios')->pluck('nombre', 'id');
 
-        //crear referenceCode
 
         return view ('admin.clientes.asignarservicio',compact('clientes','servicios'));;
+    }
 
-
+    //obtiene el valor del servicio seleccionado desde la vista de "asignar servicios a un cliente"
+    public function getValor(Request $request, $id){
+        if($request->ajax()){
+            $valor=Servicio::find($id);
+           return response()->json($valor);
+        }
     }
 
     //Método que talllllllllllllllllllllllllllllllllllllll
@@ -339,7 +350,6 @@ class ClientesController extends Controller
     public function dataAjax(Request $request)
     {
         $data = [];
-
         if($request->has('q')){
             $search = $request->q;
             $data = DB::table("clientes")

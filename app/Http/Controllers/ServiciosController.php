@@ -112,4 +112,6 @@ class ServiciosController extends Controller
         flash('El servicio '.$servicio->nombre. ' ha sido eliminado satisfactoriamente!!')->success();
         return redirect()->route('servicios.index');
     }
+
+
 }
