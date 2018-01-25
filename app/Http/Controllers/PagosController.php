@@ -17,11 +17,23 @@ class PagosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-
-      
-        $pagos= Pago::buscar($request->get('cedula'))->orderBy('id','ASC')->paginate(10);
-       return view('clientes.pagos.index')->with('pagos',$pagos);
+    {      
+       $pagos = Pago::buscarallpagos($request->get('dato'))
+       ->join('clientes', 'pagos.cliente_id', '=', 'clientes.id')
+       ->get();
+     
+      $count=0;
+      foreach ($pagos as $pago) {
+          $count=1;
+      }
+        // si la busquedad no arroja resultados
+       if($count==0){      
+        $pagos = Pago::join('clientes', 'pagos.cliente_id', '=', 'clientes.id')->get();
+        flash('No se encuentran registros asociados a la búsqueda !!')->success(); 
+        return view('admin.pagos.index')->with('pagos',$pagos);
+       }     
+       
+       return view('admin.pagos.index')->with('pagos',$pagos);
     }
 
     /**

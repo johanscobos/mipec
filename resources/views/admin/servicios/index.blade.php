@@ -18,7 +18,7 @@
     <div class="form-group">
         {!! Form::text('dato',null,['class' => 'form-control mr-sm-2', 'placeholder' => 'Nombre del servicio'] )!!}
     </div>
-        <div class="form-group">
+    <div class="form-group">
     {!! Form::submit('Buscar',['class' => 'btn btn-outline-success my-2 my-sm-0']); !!}
    </div>
 
@@ -50,11 +50,11 @@
                 <td>{{$servicio->valor}}</td>
                 <td class="flex-crud">
                     <div class="flex-crud_item">
-                        <a href="{{route('servicios.edit',$servicio->id)}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a href="{{route('servicios.edit',$servicio->id)}}" class="btn btn-warning" title="Editar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     </div>
                     <div class="flex-crud_item">
                         {!! Form::open(['route' => ['servicios.destroy', $servicio->id],'method' => 'delete']) !!}
-                        <button type="submit" class="btn btn-delete btn-danger" onclick="return confirm('¿Está seguro que desea eliminar el servicio?')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <button type="submit" class="btn btn-delete btn-danger" onclick="return confirm('¿Está seguro que desea eliminar el servicio?')" title="Eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                         {!! Form::close() !!}
                     </div>
                 </td>

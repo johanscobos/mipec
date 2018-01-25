@@ -8,24 +8,44 @@
 @section('title','Clientes - Gestionar Servicios')
 @section('content')
 
-    <h1>Activar / Inactivar Servicio</h1>
+ 
+<div class="container">
+ <div class="row mix-top">
+  <div class="col-6">
+    <h1>Servicios Clientes</h1>
+    @include('flash::message')
+  </div>
+  <div class="col-4">
+    {!! Form::open(['route' => 'clientes.gestionar_servicios', 'method' => 'get', 'class'=>'form-inline']) !!}
+    
+    <div class="form-group">
+     {!! Form::text('cedula',null,['class' => 'form-control mr-sm-2', 'placeholder' => 'Datos cliente'] )!!}
+    </div>
+    <div class="form-group">
+    {!! Form::submit('Buscar',['class' => 'btn btn-outline-success my-2 my-sm-0']); !!}
 
-    {!! Form::open(['route' => 'clientes.gestionar_servicios', 'method' => 'get']) !!}
-
-        {!! Form::label('cedula','Ingrese cédula del cliente' )!!}
-        {!! Form::text('cedula' )!!}
-        {!! Form::submit('Buscar',['class' => 'btn btn-primary']); !!}
-        {!! Form::submit('Eliminar filtro',['class' => 'btn btn-primary']); !!}
+   </div>
 
     {!! Form::close() !!}
 
+  </div>
+  <div class="col-2">
+      
+  </div>
+</div>
+
+
+<div class="row cabez-table">
+  <div class="col-12">
+
+
     @if(isset($clservicios))
     <table class="table">
-        <thead>
+        <thead class="thead-dark bg-table">
         <tr>
             <th scope="col">Cliente</th>
             <th scope="col">Cédula</th>
-            <th scope="col">Ref.</th>
+            <th scope="col">Ref. Servicio</th>
             <th scope="col">Servicio</th>
             <th scope="col">Acción</th>
         </tr>
@@ -69,7 +89,8 @@
 
 
                         {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
-                        {!! Form::submit('Activar',['class' => 'btn btn-primary']); !!}
+                        
+                        <button type="submit" class="btn btn-delete btn-warning" title="Activar"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i></button>
                         {!! Form::hidden('cliente_id',$cliente_id )!!}
                         {!! Form::hidden('rc',$rc )!!}
                         {!! Form::hidden('accion','1' )!!}
@@ -78,7 +99,8 @@
 
                     @else
                         {!! Form::open(['route' => 'clientes.activar_inactivar_servicio', 'method' => 'post']) !!}
-                        {!! Form::submit('Inactivar',['class' => 'btn btn-danger']); !!}
+                        
+                         <button type="submit" class="btn btn-delete btn-danger" title="Inactivar"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></button>
                         {!! Form::hidden('cliente_id',$cliente_id )!!}
                         {!! Form::hidden('rc',$rc )!!}
                         {!! Form::hidden('accion','0' )!!}
@@ -93,9 +115,11 @@
         </tbody>
     </table>
 
-    @else
-        <b>NO hay servicios asociados para clientes con este documento!!</b>
+    
     @endif
+</div>
+</div>
+</div>
     @include('layouts.partials.scripts')
 
 @endsection

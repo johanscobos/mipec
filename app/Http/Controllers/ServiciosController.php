@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Servicio;
+use App\Cliente;
 use Laracasts\Flash\Flash;
 
 class ServiciosController extends Controller
@@ -17,6 +19,16 @@ class ServiciosController extends Controller
     {
 
         $servicios= Servicio::buscar($request->get('dato'))->orderBy('id','ASC')->paginate(10);
+
+        $count=0;
+      foreach ($servicios as $servicio) {
+          $count=1;
+      }
+        // si la busquedad no arroja resultados
+       if($count==0){ 
+        flash('No se encuentran registros asociados a los parámetros de busqueda.!!.')->success();
+        return view('admin.servicios.index')->with('servicios',$servicios);
+       }
         return view('admin.servicios.index')->with('servicios',$servicios);
     }
 
@@ -51,7 +63,7 @@ class ServiciosController extends Controller
         $servicio->valor=$request->valor;
         $servicio->save();
 
-        flash('El servicio se creó satisfactoriamente!!.')->success();
+        flash('El servicio se creó satisfactoriamente.!!.')->success();
         return redirect('/admin/servicios/create');
 
 
@@ -113,5 +125,88 @@ class ServiciosController extends Controller
         return redirect()->route('servicios.index');
     }
 
+    public function serviciosporpagarBueno(Request $request){
+      
+        $dato = $request->dato;
+        //dd($dato);
+         
+         if (!empty($dato))
+        {
+           // Obtengo los datos del cliente, según el dato enviado desde la busqueda de la vista  
+             $query->where('nombre',"LIKE","%$dato%");
+
+             $cliente  = Cliente::where('nombres', 'LIKE', '%'.$dato.'%')
+            ->orWhere('apellidos', 'LIKE', '%'.$dato.'%')
+            ->orWhere('cedula', $dato)->get();
+
+            if($cliente!=NULL)
+            {
+                
+                //Obtengo el id del objeto obtenido en el query
+                $cliente_id = $cliente->id;
+
+                //Busco los clientes que coincidan con el id
+                $serviciosporpagar = DB::table('cliente_servicio')->where([
+                    ['cliente_id', '=', $cliente_id],
+                    ['estado_pago', '=', 0],
+                ])->get();
+
+                // envio la coleccion de objetos
+                return view('admin.servicios.serviciosporpagar', ['serviciosporpagar' => $serviciosporpagar]);
+            }
+            else{
+                
+                // Si el query no arroja resultados, que muestre el mensaje de error y todos los clientes con servicios
+                flash('No hay clientes asociados con los datos suministrados!!.')->success();
+                $serviciosporpagar = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+            return view('admin.servicios.serviciosporpagar', ['serviciosporpagar' => $serviciosporpagar]);
+            }
+         }
+         else{
+                 $serviciosporpagar = DB::table('cliente_servicio')->where([['estado_pago', '=', '0'],])->get();
+                 return view('admin.servicios.serviciosporpagar', ['serviciosporpagar' => $serviciosporpagar]);  
+         }
+
+    }
+
+
+    public function serviciosporpagar(Request $request){
+      
+         //$datos= Cliente::buscarpagos($request->get('dato'))->orderBy('id','ASC')->paginate(10);
+
+        $serviciosporpagar = Cliente::buscarpagospendientes($request->get('dato'))
+       ->join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
+       ->join('servicios', 'cliente_servicio.servicio_id', '=', 'servicios.id')
+       ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos','clientes.cedula','cliente_servicio.servicio_id','cliente_servicio.cliente_id','cliente_servicio.referenceCode','cliente_servicio.valor_pagar','cliente_servicio.estado_pago','servicios.id','servicios.nombre','servicios.descripcion')
+       ->where('cliente_servicio.estado_pago','=',0)
+       ->get();
+
+
+        $count=0;
+      foreach ($serviciosporpagar as $sporpagar) {
+          $count=1;
+      }
+        // si la busquedad no arroja resultados
+       if($count==0){      
+        $serviciosporpagar = Cliente::
+       join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
+       ->join('servicios', 'cliente_servicio.servicio_id', '=', 'servicios.id')
+       ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos','clientes.cedula','cliente_servicio.servicio_id','cliente_servicio.cliente_id','cliente_servicio.referenceCode','cliente_servicio.valor_pagar','cliente_servicio.estado_pago','servicios.id','servicios.nombre','servicios.descripcion')
+       ->where('cliente_servicio.estado_pago','=',0)
+       ->get();
+
+        flash('No se encuentran registros asociados a la búsqueda !!')->success(); 
+        return view('admin.servicios.serviciosporpagar')->with('serviciosporpagar',$serviciosporpagar);
+       }  
+
+        //dd($serviciosporpagar);
+        return view('admin.servicios.serviciosporpagar')->with('serviciosporpagar',$serviciosporpagar);       
+
+    }
+
+
 
 }
+
+
+

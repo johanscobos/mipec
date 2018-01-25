@@ -14,11 +14,15 @@
 
         @can('serviciosPorPagar')
 
-            <li><i class="fa fa-usd color" aria-hidden="true"></i> <a href="{{url('clientes/pagos/pagospendientes')}}">Servicios por pagar</a></li>
+            <li><i class="fa fa-usd color" aria-hidden="true"></i> <a href="{{url('admin/servicios/serviciosporpagar')}}">Servicios por pagar</a></li>
         @endcan
 
         @can('ActivarServicio')
-            <li><i class="fa fa-gavel color" aria-hidden="true"></i> <a href="{{url('admin/clientes/gestionar_servicios')}}">Servicio de clientes</a></li>
+            <li><i class="fa fa-gavel color" aria-hidden="true"></i> <a href="{{url('admin/clientes/gestionar_servicios')}}">Servicios de clientes</a></li>
+        @endcan
+
+        @can('ActivarServicio')
+            <li><i class="fa fa-gavel color" aria-hidden="true"></i> <a href="{{url('admin/pagos')}}">Pagos</a></li>
         @endcan
 
 

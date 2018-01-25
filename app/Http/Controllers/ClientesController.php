@@ -223,29 +223,36 @@ class ClientesController extends Controller
 
         if (!empty($cedula))
         {
-            $cliente = Cliente::where('cedula', $cedula)->first();
+         
+          // Obtengo los datos del cliente, según el dato enviado desde la busqueda de la vista  
+           $cliente  = Cliente::where('nombres', 'LIKE', '%'.$cedula.'%')
+            ->orWhere('apellidos', 'LIKE', '%'.$cedula.'%')
+            ->orWhere('cedula', $cedula)->first();
 
             if($cliente!=NULL)
             {
+                //Obtengo el id del objeto obtenido en el query
                 $cliente_id = $cliente->id;
+
+                //Busco los clientes que coincidan con el id
                 $clservicios = DB::table('cliente_servicio')->where([
                     ['cliente_id', '=', $cliente_id],
                     ['estado_pago', '=', 1],
                 ])->get();
+
+                // envio la coleccion de objetos
                 return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
             }
             else{
-                //$clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
-                //return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
-
-                // $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
-
-                //llama a la vista sin variable para que diga que no hay resultados encontrados
-                return view('admin.clientes.gestionar_servicios');
+                
+                // Si el query no arroja resultados, que muestre el mensaje de error y todos los clientes con servicios
+                flash('No hay clientes asociados con los datos suministrados!!.')->success();
+                $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+            return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
             }
         }
 
-        //muestra todos los clientes con servicios
+        //Si no se envia datos para la busqueda, entonces muestra todos los clientes con servicios
         else{
              //si no esta definida la variable que muestre todos
             $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
@@ -358,5 +365,11 @@ class ClientesController extends Controller
                     ->get();
         }
         return response()->json($data);
+    }
+
+    public function serviciosporpagar(Request $request){
+
+        $clientes=Cliente::all();
+
     }
 }
