@@ -42,7 +42,7 @@ class Cliente extends Model
         return $this->belongsTo('App\Ciudad');
     }
 
-  
+
     public function scopeBuscar($query, $cedula){
 
         //$roles = User::find($name)->roles;
