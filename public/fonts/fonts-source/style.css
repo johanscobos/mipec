@@ -1,0 +1,71 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?dycgkn');
+  src:  url('fonts/icomoon.eot?dycgkn#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?dycgkn') format('truetype'),
+    url('fonts/icomoon.woff?dycgkn') format('woff'),
+    url('fonts/icomoon.svg?dycgkn#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-twitter:before {
+  content: "\e000";
+}
+.icon-facebook:before {
+  content: "\e001";
+}
+.icon-dribbble:before {
+  content: "\e002";
+}
+
+<span class="icon-twitter"></span> Twitter
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-no-filter .path1:before {
+  content: "\e900";
+  color: rgb(51, 150, 69);
+}
+.icon-no-filter .path2:before {
+  content: "\e901";
+  margin-left: -1.3740234375em;
+  color: rgb(51, 150, 69);
+}
+.icon-no-filter .path3:before {
+  content: "\e902";
+  margin-left: -1.3740234375em;
+  color: rgb(51, 150, 69);
+}
+.icon-no-filter .path4:before {
+  content: "\e903";
+  margin-left: -1.3740234375em;
+  color: rgb(51, 150, 69);
+}
+.icon-no-filter .path5:before {
+  content: "\e904";
+  margin-left: -1.3740234375em;
+  color: rgb(255, 255, 255);
+}
+.icon-no-filter .path6:before {
+  content: "\e905";
+  margin-left: -1.3740234375em;
+  color: rgb(255, 255, 255);
+}
+.icon-filtrar:before {
+  content: "\e906";
+  color: #339645;
+}

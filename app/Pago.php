@@ -60,6 +60,22 @@ class Pago extends Model
     }
   */
 
+ public function scopeBuscarallpagos($query,$dato){
+        //Si $dato es diferente de "", ejecuto  la consulta
+        //con "trim" elimino los espacios recibidos con $dato
+        // con el método LIKE hago puedo hacer busquedas con una fracción de una palabra, ejemplo: col
+       
+      $cliente=Cliente::find($dato);
+        if(trim($dato) !=""){
+            $query->where('nombres',"LIKE","%$dato%")
+            ->orWhere('apellidos',"LIKE","%$dato%")
+            ->orWhere('cedula',$dato) 
+            ->orWhere('referenceCode',"LIKE","%$dato%")
+            ->orWhere('valor_pago', $dato)
+            ->orWhere('nombre',"LIKE","%$dato%");
+        }
+    }
+
     public function scopeBuscar($query,$dato){
 
         if(trim($dato) !=""){

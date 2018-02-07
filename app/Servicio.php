@@ -19,10 +19,12 @@ class Servicio extends Model
 
     public function clientes()
     {
-        return $this->belongsToMany('App\Cliente')->withPivot('valor_pagar', 'estado_pago','estado_servicio','descripcion_variable');
+        return $this->belongsToMany('App\Cliente')
+        ->withPivot('referenceCode','valor_pagar', 'estado_pago','estado_servicio','descripcion_variable');
     }
 
 
+    //Busquedad desde el metodo index del controlador Sevicios
      public function scopeBuscar($query,$dato){
         //Si $dato es diferente de "", ejecuto  la consulta
         //con "trim" elimino los espacios recibidos con $dato
@@ -31,5 +33,7 @@ class Servicio extends Model
             $query->where('nombre',"LIKE","%$dato%");
         }
     }
+
+
 }
 

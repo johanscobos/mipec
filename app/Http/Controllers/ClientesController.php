@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Cliente;
 use App\Servicio;
+use App\User;
 
 
 class ClientesController extends Controller
@@ -162,9 +163,30 @@ class ClientesController extends Controller
         //
     }
 
+    // ver clinetes asignados a consultores
+    public function ver_clientes_Consultor(Request $request){
+
+       $consultores = User::buscaruser($request->get('dato'))
+
+
+          //$consultores = User::
+            ->join('empleados', 'users.id', '=', 'empleados.user_id')
+            ->join('clientes', 'clientes.empleado_id', '=', 'empleados.id')
+           //->join('clientes as cl', 'cl.empleado_id', '=', 'empleados.id')
+            ->select('empleados.nombres', 'empleados.apellidos', 'empleados.cedula','clientes.nombres as nombresclientes','clientes.apellidos as apellidosclientes','clientes.cedula as cedulaclientes')
+           //->select('empleados.nombres', 'empleados.apellidos', 'empleados.cedula','cl.nombres','cl.apellidos','cl.cedula')
+            ->where('users.tipo_rol','=',10)
+           // ->orderBy('clientes.id','ASC')->paginate(10)
+            ->get();
+
+        //dd($consultores);
+        return view('admin.clientes.verclientesconsultor')->with('consultores',$consultores);
+    }
+
     //Método que talllllllllllllllllllllllllllllllllllllll
     public function asignarservicio()
     {
+
         //se concatena el nombre y apellido de los clientes antes de enviarlos con 'pluck'
         $clientes  = DB::table('clientes')
             ->select(
@@ -216,42 +238,84 @@ class ClientesController extends Controller
     }
 
     //Método que lista los servicios que un cliente tiene asignados y un botón de la vista, lo activa o inactiva en el método "activar_inactivar_servicio"
-    public function gestionar_servicios(Request $request)
+  /*  public function gestionar_servicios_old3(Request $request)
     {
         //ir al modelo clientes y buscar el nombre que coincida y luego traer el id para pasarselo
         $cedula = $request->cedula;
 
         if (!empty($cedula))
         {
-            $cliente = Cliente::where('cedula', $cedula)->first();
+         
+          // Obtengo los datos del cliente, según el dato enviado desde la busqueda de la vista  
+           $cliente  = Cliente::where('nombres', 'LIKE', '%'.$cedula.'%')
+            ->orWhere('apellidos', 'LIKE', '%'.$cedula.'%')
+            ->orWhere('cedula', $cedula)->first();
 
             if($cliente!=NULL)
             {
+                //Obtengo el id del objeto obtenido en el query
                 $cliente_id = $cliente->id;
+
+                //Busco los clientes que coincidan con el id
                 $clservicios = DB::table('cliente_servicio')->where([
                     ['cliente_id', '=', $cliente_id],
                     ['estado_pago', '=', 1],
                 ])->get();
+
+                // envio la coleccion de objetos
                 return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
             }
             else{
-                //$clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
-                //return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
-
-                // $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
-
-                //llama a la vista sin variable para que diga que no hay resultados encontrados
-                return view('admin.clientes.gestionar_servicios');
+                
+                // Si el query no arroja resultados, que muestre el mensaje de error y todos los clientes con servicios
+                flash('No hay clientes asociados con los datos suministrados!!.')->success();
+                $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
+            return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
             }
         }
 
-        //muestra todos los clientes con servicios
+        //Si no se envia datos para la busqueda, entonces muestra todos los clientes con servicios
         else{
              //si no esta definida la variable que muestre todos
             $clservicios = DB::table('cliente_servicio')->where('estado_pago', 1)->get();
             return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
     }
+    }*/
+
+
+    public function gestionar_servicios(Request $request){
+
+        $clservicios = Cliente::buscarpagospendientes($request->get('dato'))
+            ->join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
+            ->join('servicios', 'cliente_servicio.servicio_id', '=', 'servicios.id')
+            ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos','clientes.cedula','cliente_servicio.servicio_id','cliente_servicio.cliente_id','cliente_servicio.referenceCode','cliente_servicio.valor_pagar','cliente_servicio.estado_pago','cliente_servicio.estado_servicio','servicios.id','servicios.nombre','servicios.descripcion')
+            ->where('cliente_servicio.estado_pago','=',1)
+            ->get();
+
+
+
+        $count=0;
+        foreach ($clservicios as $clservicio) {
+            $count=1;
+        }
+        // si la busquedad no arroja resultados, traiga todos lore resultados sin hacer ningún filtro y saqque el mensaje Flash
+        if($count==0){
+            $clservicios = Cliente::
+            join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
+                ->join('servicios', 'cliente_servicio.servicio_id', '=', 'servicios.id')
+                ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos','clientes.cedula','cliente_servicio.servicio_id','cliente_servicio.cliente_id','cliente_servicio.referenceCode','cliente_servicio.valor_pagar','cliente_servicio.estado_pago','servicios.id','servicios.nombre','servicios.descripcion')
+                ->where('cliente_servicio.estado_pago','=',1)
+                ->get();
+
+            flash('No se encuentran registros asociados a la búsqueda !!')->success();
+            return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
+        }
+
+        //dd($serviciosporpagar);
+
+        return view('admin.clientes.gestionar_servicios', ['clservicios' => $clservicios]);
     }
+
 
     //Método que activa o inactiva un servicio de un cliente
     public function activar_inactivar_servicio(Request $request)
@@ -358,5 +422,11 @@ class ClientesController extends Controller
                     ->get();
         }
         return response()->json($data);
+    }
+
+    public function serviciosporpagar(Request $request){
+
+        $clientes=Cliente::all();
+
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Pais;
 use App\Ciudad;
 use App\Empleado;
@@ -52,7 +53,6 @@ class adminController extends Controller
         if($request->tipo_user == '0')
          {   
 
-            
            $usuario = new User();
             $usuario->username= $request->input('username');
             $usuario->email= $request->input('email');
@@ -143,26 +143,41 @@ class adminController extends Controller
      */
     public function clienteEmpleado()
     {
-        $cliente= Cliente::all();
-        return view('admin.clienteEmpleado',compact('cliente'));
-    }
+        $empleados = DB::table('empleados')
+            ->join('users', 'empleados.user_id', '=', 'users.id')
+            ->where('users.tipo_rol','=',10)
+            ->where('users.tipo_user','=',0)
+            ->select('empleados.id', 'empleados.nombres', 'empleados.apellidos')
+            ->select(
+                DB::raw("CONCAT(empleados.nombres,' ',empleados.apellidos) AS fullname"),'empleados.id')
+            ->pluck('fullname', 'id');
+            //->get();
 
+        //se concatena el nombre y apellido de los clientes antes de enviarlos con 'pluck'
+        $clientes  = DB::table('clientes')
+            ->select(
+                DB::raw("CONCAT(nombres,' ',apellidos) AS fullname"),'id')->pluck('fullname', 'id');
+
+        return view('admin.clienteEmpleado',compact('clientes','empleados'));
+    }
+/*
     public function storageClienteEmpleado($id)
     {
-        
+
         $empleado= Empleado::all();
         return view('admin.relClienteEmpleado',compact('empleado','id'));
     }
-
+*/
     public function storeRelClEm(Request $request)
     {
-        $cliente= Cliente::find($request->id);
+        $cliente= Cliente::find($request->cliente_id);
 
-        $cliente->empleado_id = $request->input('empleados');
+        $cliente->empleado_id = $request->input('empleado_id');
         $cliente->save();
 
-        flash('Se creó la relación!!.')->success();
-        return redirect('/admin/administrador/storeRelClEm');
+
+       flash('El Consultor se asignó satisfactoriamente.!!')->success();
+       return redirect('/admin/administrador/clienteEmpleado');
         
     }
     public function show()

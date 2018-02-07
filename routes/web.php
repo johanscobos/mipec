@@ -37,7 +37,8 @@ Route::get('/admin/clientes/asignarservicio', 'ClientesController@asignarservici
 
 Route::get('/admin/clientes/servicios', 'ClientesController@servicios');// esta rara
 
-Route::get('/admin/servicios/pagospendintes', 'ClientesController@pagospendientes')->name('pagos_pendientes');
+
+Route::get('/admin/servicios/serviciosporpagar', 'ServiciosController@serviciosporpagar')->name('serviciosporpagar');
 
 Route::get('/admin/clientes/gestionar_servicios', 'ClientesController@gestionar_servicios')->name('clientes.gestionar_servicios');
 Route::put('/admin/clientes/subir_planilla', 'PagosController@subir_planilla')->name('clientes.subir_planilla');
@@ -69,8 +70,8 @@ Route::get('/clientes/pagos/respuesta_pago/{txt_value}', 'PagosController@respue
 
 
 
-
-
+//muestra todos los pagos
+Route::get('/admin/pagos','PagosController@index')->name('pagos');
 
 Route::get('/admin/clientes/valor/{id}', 'ClientesController@getValor');
 
@@ -82,6 +83,8 @@ Route::get('/admin/clientes/planilla', function () {
     return view('admin.servicios.planillas');
 })->name('clientes.planilla');
 
+
+Route::get('/admin/administrador/verclientesconsultor', 'clientesController@ver_clientes_consultor')->name('clientesConsultor');
 
 Route::get('/admin/administrador/clienteEmpleado', 'adminController@clienteEmpleado');
 Route::get('/admin/administrador/storageClienteEmpleado/{id}', 'adminController@storageClienteEmpleado')->name('clienteEmpleado');
@@ -108,5 +111,3 @@ Route::group(['prefix' =>'clientes'], function (){
 });
 
 
-Route::get('select2-autocomplete', 'ClientesController@layout');
-Route::get('select2-autocomplete-ajax', 'ClientesController@dataAjax');

@@ -3,6 +3,10 @@ body {
     min-height: 100%;
     min-height: 100vh;
 }
+
+
+
+
 h1{
     color: #333;
 }
@@ -68,6 +72,9 @@ h1{
 }
 
 
+.bgcol{
+    background-color: #E0E0E0;
+}
 /*:::::::::::::::::::::menu principal:::::::::::::::::*/
 ul, menu, dir{
     -webkit-margin-before: 0em;

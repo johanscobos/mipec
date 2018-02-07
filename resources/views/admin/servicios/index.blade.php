@@ -9,26 +9,29 @@
 
 <div class="container">
  <div class="row mix-top">
-  <div class="col-6">
+  <div class="col-4">
     <h1>Servicios</h1>
     @include('flash::message')
   </div>
   <div class="col-4">
-      {!! Form::open(['method' => 'get', 'class'=>'form-inline','role'=>'search']) !!}
+      {!! Form::open(['method' => 'get', 'class'=>'form-inline float-right','role'=>'search']) !!}
     <div class="form-group">
-        {!! Form::text('dato',null,['class' => 'form-control mr-sm-2', 'placeholder' => 'Nombre del servicio'] )!!}
+        {!! Form::text('dato',null,['class' => 'form-control mr-sm-2 ', 'placeholder' => 'Nombre del servicio'] )!!}
     </div>
-        <div class="form-group">
-    {!! Form::submit('Buscar',['class' => 'btn btn-outline-success my-2 my-sm-0']); !!}
+    <div class="form-group">
+    {!! Form::submit('Filtrar',['class' => 'btn btn-outline-success my-2 my-sm-0']); !!}
    </div>
 
     {!! Form::close() !!}
 
   </div>
+     <div class="col-2">
+         <a href="{{ route('servicios.index',['dato' => ''])}}" class="btn btn-outline-success "><i class="fa fa-filter" aria-hidden="true"></i> Eliminar filtro</a>
+     </div>
   <div class="col-2">
       <a href="{{route('servicios.create')}}" class="btn btn-crear btn-primary">Crear servicio</a>
-
   </div>
+
 </div>
 
  <div class="row cabez-table">
@@ -50,11 +53,11 @@
                 <td>{{$servicio->valor}}</td>
                 <td class="flex-crud">
                     <div class="flex-crud_item">
-                        <a href="{{route('servicios.edit',$servicio->id)}}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a href="{{route('servicios.edit',$servicio->id)}}" class="btn btn-warning" title="Editar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     </div>
                     <div class="flex-crud_item">
                         {!! Form::open(['route' => ['servicios.destroy', $servicio->id],'method' => 'delete']) !!}
-                        <button type="submit" class="btn btn-delete btn-danger" onclick="return confirm('¿Está seguro que desea eliminar el servicio?')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <button type="submit" class="btn btn-delete btn-danger" onclick="return confirm('¿Está seguro que desea eliminar el servicio?')" title="Eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                         {!! Form::close() !!}
                     </div>
                 </td>

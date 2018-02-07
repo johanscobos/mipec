@@ -49,5 +49,23 @@ class User extends Authenticatable
         }
     }
 
+    public function scopeBuscaruser($query,$dato){
+        //Si $dato es diferente de "", ejecuto  la consulta
+        //con "trim" elimino los espacios recibidos con $dato
+        // con el método LIKE hago puedo hacer busquedas con una fracción de una palabra, ejemplo: col
+
+        $users=User::find($dato);
+        if(trim($dato) !=""){
+
+            $query->where('empleados.nombres',"LIKE","%$dato%")
+                ->orWhere('empleados.apellidos',"LIKE","%$dato%")
+                ->orWhere('empleados.cedula',$dato)
+                ->orWhere('clientes.nombres',"LIKE","%$dato%")
+                ->orWhere('clientes.apellidos',"LIKE","%$dato%")
+                ->orWhere('clientes.cedula',$dato);
+        }
+
+    }
+
 
 }

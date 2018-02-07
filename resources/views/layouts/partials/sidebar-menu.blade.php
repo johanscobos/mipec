@@ -14,11 +14,15 @@
 
         @can('serviciosPorPagar')
 
-            <li><i class="fa fa-usd color" aria-hidden="true"></i> <a href="{{url('clientes/pagos/pagospendientes')}}">Servicios por pagar</a></li>
+            <li><i class="fa fa-usd color" aria-hidden="true"></i> <a href="{{url('admin/servicios/serviciosporpagar')}}">Servicios por pagar</a></li>
         @endcan
 
         @can('ActivarServicio')
-            <li><i class="fa fa-gavel color" aria-hidden="true"></i> <a href="{{url('admin/clientes/gestionar_servicios')}}">Servicio de clientes</a></li>
+            <li><i class="fa fa-gavel color" aria-hidden="true"></i> <a href="{{url('admin/clientes/gestionar_servicios')}}">Servicios de clientes</a></li>
+        @endcan
+
+        @can('historialPagos')
+            <li><i class="fa fa-credit-card color" aria-hidden="true"></i> <a href="{{url('admin/pagos')}}">Pagos</a></li>
         @endcan
 
 
@@ -26,12 +30,9 @@
     <li><i class="fa fa-gavel color" aria-hidden="true"></i> <a href="{{url('admin/administrador/clienteEmpleado')}}">Asignar Consultor a cliente</a></li>
     @endcan
 
-
-
-
-
-
-
+        @can('verClientesDeEmpleados')
+            <li><i class="fa fa-eye color" aria-hidden="true"></i> <a href="{{url('admin/administrador/verclientesconsultor')}}">Ver Clientes de Consultores</a></li>
+        @endcan
 
 
     @can('pagosClientes')
@@ -39,13 +40,7 @@
     @endcan
 
 
-    @can('historialPagos')
-    <li><i class="fa fa-bar-chart color" aria-hidden="true"></i> <a href="{{url('/clientes/pagos/ver_pagos')}}">Historial de pagos</a></li>
-    @endcan
 
-    @can('verClientesDeEmpleados')
-    <li><i class="fa fa-eye color" aria-hidden="true"></i> <a href="">Ver Clientes de Consultores</a></li>
-    @endcan
 
     @can('verPropiosClientes')
     <li><i class="fa fa-gavel color" aria-hidden="true"></i> <a href="{{url('admin/empleados/verClientes')}}">Ver mis clientes</a></li>

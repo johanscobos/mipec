@@ -35,11 +35,9 @@
                     {!!Form::label('descripcion_variable', 'Descripcion variable');!!}
                     {!! Form::textarea('descripcion_variable',null, ['class' => 'form-control']) !!}
                 </div>
-
                 <br>
                 {!! Form::submit('Asignar',['class' => 'btn btn-primary']); !!}
                 {!! Form::close() !!}
-
             </div>
         </div>
     </div>

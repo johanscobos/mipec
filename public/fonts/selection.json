@@ -1,0 +1,185 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M72.734 299.050h1246.799v105.797h-1246.799v-105.797z",
+          "M277.267 603.652h837.706v100.496h-837.706v-100.496z",
+          "M520.793 866.674h350.654v100.496h-350.654v-100.496z",
+          "M908.304 320.908c0 131.055-106.241 237.295-237.295 237.295s-237.295-106.241-237.295-237.295c0-131.055 106.241-237.295 237.295-237.295s237.295 106.241 237.295 237.295z",
+          "M572.015 168.625l251.234 251.234-53.295 53.295-251.234-251.234 53.295-53.295z",
+          "M769.972 168.643l53.295 53.295-251.234 251.234-53.295-53.295 251.234-251.234z"
+        ],
+        "attrs": [
+          {
+            "fill": "rgb(51, 150, 69)"
+          },
+          {
+            "fill": "rgb(51, 150, 69)"
+          },
+          {
+            "fill": "rgb(51, 150, 69)"
+          },
+          {
+            "fill": "rgb(51, 150, 69)"
+          },
+          {
+            "fill": "rgb(255, 255, 255)"
+          },
+          {
+            "fill": "rgb(255, 255, 255)"
+          }
+        ],
+        "width": 1407,
+        "isMulticolor": true,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "no-filter"
+        ],
+        "colorPermutations": {
+          "255255255151150691": [
+            {
+              "f": 0
+            },
+            {
+              "f": 0
+            },
+            {
+              "f": 0
+            },
+            {
+              "f": 0
+            },
+            {
+              "f": 1
+            },
+            {
+              "f": 1
+            }
+          ]
+        }
+      },
+      "attrs": [
+        {
+          "fill": "rgb(51, 150, 69)"
+        },
+        {
+          "fill": "rgb(51, 150, 69)"
+        },
+        {
+          "fill": "rgb(51, 150, 69)"
+        },
+        {
+          "fill": "rgb(51, 150, 69)"
+        },
+        {
+          "fill": "rgb(255, 255, 255)"
+        },
+        {
+          "fill": "rgb(255, 255, 255)"
+        }
+      ],
+      "properties": {
+        "order": 13,
+        "id": 0,
+        "name": "no-filter",
+        "prevSize": 32,
+        "code": 59648,
+        "codes": [
+          59648,
+          59649,
+          59650,
+          59651,
+          59652,
+          59653
+        ]
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M59.543 128.213h1540.61v130.728h-1540.61v-130.728z",
+          "M312.307 504.596h1035.114v124.178h-1035.114v-124.178z",
+          "M613.189 829.6h433.287v124.178h-433.287v-124.178z"
+        ],
+        "attrs": [
+          {
+            "fill": "rgb(51, 150, 69)"
+          },
+          {
+            "fill": "rgb(51, 150, 69)"
+          },
+          {
+            "fill": "rgb(51, 150, 69)"
+          }
+        ],
+        "width": 1685,
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "filtrar"
+        ]
+      },
+      "attrs": [
+        {
+          "fill": "rgb(51, 150, 69)"
+        },
+        {
+          "fill": "rgb(51, 150, 69)"
+        },
+        {
+          "fill": "rgb(51, 150, 69)"
+        }
+      ],
+      "properties": {
+        "order": 12,
+        "id": 0,
+        "name": "filtrar",
+        "prevSize": 32,
+        "code": 59654
+      },
+      "setIdx": 1,
+      "setId": 2,
+      "iconIdx": 0
+    }
+  ],
+  "height": 1024,
+  "metadata": {
+    "name": "icomoon"
+  },
+  "preferences": {
+    "showGlyphs": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon"
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "classSelector": ".icon"
+    },
+    "historySize": 50,
+    "showCodes": true,
+    "gridSize": 16
+  }
+}
