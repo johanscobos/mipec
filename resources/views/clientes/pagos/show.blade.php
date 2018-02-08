@@ -7,46 +7,72 @@ use App\Servicio;
 @section('title','Pagos - Detalles')
 @section('content')
 
-    <h2>Detalles Pago</h2>
-
-    <div class="card">
-        <div class="card-header">
-            Referencia de pago: <b>{{$pago->referenceCode}}</b>
+<div class="container">
+    <div class="row mix-top">
+        <div class="col-12">
+            <h1>Detalles Pago</h1>
+            @include('flash::message')
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Fecha de pago</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <h5 class="card-title">Valor pagado:</h5>
-            <p class="card-text">$ {{$pago->valor_pago}}</p>
-            <h5 class="card-title">Cliente</h5>
-            <p class="card-text">
+    </div>
+<div class="row">
+  <div class="row cabez-table">
+  <div class="col-12">
+         <table class="table">
+        <thead class="thead-dark bg-table">
+        <tr>    
+            <th scope="col">Fecha de pago</th>
+            <td></td>            
+        </tr>
+        <tr>
+            <th scope="col">Valor pagado</th>
+            <td>
+                $
+                 @php
+                    echo $vpago=number_format($pago->valor_pago);
+                 @endphp   
+            </td>            
+        </tr>
+        <tr>
+            <th scope="col">Cliente</th>
+            <td> 
                 @php               
                 $cliente = Pago::find($pago->id)->cliente;
                 echo $cliente->nombres.' '.$cliente->apellidos;
                 @endphp
-            </p>
-            <h5 class="card-title">Servicio</h5>
-            <p class="card-text">
-                @php               
+            </td>           
+        </tr>
+        <tr>
+            <th scope="col">Servicio</th>  
+            <td>
+            @php               
                 $servicio = Servicio::find($pago->servicio_id);
                 echo $servicio->nombre;
-                @endphp
-            </p>
-            <h5 class="card-title">Descripción</h5>
-            <p class="card-text">
+             @endphp
+            </td>             
+        </tr>
+        <tr>
+            <th scope="col">Descripción</th> 
+            <td>
                 @php               
                 $descripcion = Servicio::find($pago->servicio_id);
                 echo $descripcion->descripcion;
                 @endphp
-            </p>
-            <h5 class="card-title">Planilla</h5>
-            <p class="card-text"><a href="{{$pago->planilla}}">
-                 <a href="{{$pago->planilla}}" class="btn btn-warning" title="Descargar">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-            </p>
+            </td>
+        </tr>
+         <tr>
+            <th scope="col">Planilla</th>
+             <td>
+                <a href="{{route('clientes.pagos.bajar_planilla',$pago->id)}}" class="btn btn-warning" title="Descargar Planilla">
+                    <i class="fa fa-download" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        </thead>
+        
+    </table>
+  </div>
+</div>
+</div>
+</div>
 
-
-        </div>
-    </div>
-
+    
 @endsection
