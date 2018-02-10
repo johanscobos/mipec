@@ -1,12 +1,10 @@
 @php
     use App\User;
-
 @endphp
 
 @extends('layouts.principal')
 @section('title','Servicios por pagar')
 @section('content')
-
 
 <div class="container">
  <div class="row mix-top">
@@ -28,7 +26,6 @@
   <div class="col-2">
     <a href="{{ route('serviciosporpagar',['dato' => ''])}}" class="btn btn-outline-success"><i class="fa fa-filter" aria-hidden="true"></i> Eliminar filtro</a>
   </div>
-
 </div>
 
  <div class="row cabez-table">
@@ -37,35 +34,33 @@
         <thead class="thead-dark bg-table">
         <tr>            
             <th scope="col">Cliente</th>
-            <th scope="col">Cedula</th>
+            <th scope="col">Cédula</th>
             <th scope="col">Ref. Pago</th>
             <th scope="col">Servicio</th>
             <th scope="col">Descripción</th>
-            <th scope="col">Valor $</th>
-          
-                                   
+            <th scope="col">Valor</th>  
+            <th scope="col">Acción</th>      
         </tr>
         </thead>
         <tbody>
         @foreach($serviciosporpagar as $serviporpagar)
-
-         @php
-                    //Instancio el servicio con el id
-                   //  $servicio = App\Servicio::find($serviporpagar->servicio_id);
-
-                    //Instancio el cliente con el id
-                    //$cliente = App\Cliente::find($serviporpagar->cliente_id);
-                @endphp
-
             <tr data-id="{{$serviporpagar->servicio_id}}">
                <td>{{$serviporpagar->nombres.' '.$serviporpagar->apellidos}}</td>
                <td>{{$serviporpagar->cedula}}</td>
                <td>{{$serviporpagar->referenceCode}}</td>
                <td>{{$serviporpagar->nombre}}</td>
-               <td>{{$serviporpagar->descripcion}}}</td>
-               <td>{{$serviporpagar->valor_pagar}}</td>
-               
-             
+               <td>{{$serviporpagar->descripcion}}</td>
+               <td class="text-right">
+                @php
+                    //le doy formato de miles al valor pagado
+                    echo $vpago=number_format($serviporpagar->valor_pagar);
+                 @endphp
+              </td>
+              <td class="flex-crud">
+                   <div class="flex-crud_item">
+                      <a href="{{route('detalles_servicioporpagar',$serviporpagar->id)}}" class="btn btn-primary" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </div>                 
+              </td>
             </tr>
         @endforeach
         </tbody>

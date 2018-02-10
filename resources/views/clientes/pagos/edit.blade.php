@@ -1,3 +1,5 @@
+@can('ver_editar_pagos')
+
 @extends('layouts.principal')
 @section('title','Clientes - Planillas')
 @section('content')
@@ -24,3 +26,5 @@
     </div>
 
 @endsection
+
+@endcan

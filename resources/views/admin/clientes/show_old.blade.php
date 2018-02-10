@@ -10,7 +10,7 @@ use App\Servicio;
 <div class="container">
     <div class="row mix-top">
         <div class="col-12">
-            <h1>Detalles Pago</h1>
+            <h1>Detalles Pago Pendiente</h1>
             @include('flash::message')
         </div>
     </div>

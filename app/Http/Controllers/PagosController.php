@@ -18,16 +18,53 @@ class PagosController extends Controller
      */
     public function index(Request $request)
     {      
-       $pagos = Pago::buscarallpagos($request->get('dato'))
+       
+      //capturo el id del usuario  autenticado
+       $user = Auth::user();
+
+       //Evaluo si el usuario tiene el rol "cliente (11) para buscar solo los pagos asociados a este"
+       if($user->tipo_rol==11)
+       {       
+   
+        $cliente = Cliente::where('user_id', $user->id)->first();      
+        
+        $pagos = Pago::buscarallpagos($request->get('dato'))
+       ->join('clientes', 'pagos.cliente_id', '=', 'clientes.id')
+       ->join('servicios', 'pagos.servicio_id', '=', 'servicios.id')
+       ->where('cliente_id', $cliente->id)
+       ->get();
+
+         $count=0;
+
+        //recorro el query para ver encuentra registros
+          foreach ($pagos as $pago) {
+          $count=1;
+        }
+
+         // si el query no arroja resultados, saco el mensaje Flash
+       if($count==0){      
+       flash('Usted no tiene historial de pagos !!')->success(); 
+        return view('admin.pagos.index')->with('pagos',$pagos);
+       }     
+       
+       return view('admin.pagos.index')->with('pagos',$pagos);
+
+       }
+
+       // si el usaurio no es cliente, muestro los pagos de todos los usuarios
+       else{
+
+        $pagos = Pago::buscarallpagos($request->get('dato'))
        ->join('clientes', 'pagos.cliente_id', '=', 'clientes.id')
        ->join('servicios', 'pagos.servicio_id', '=', 'servicios.id')
        ->get();
 
       $count=0;
+      //recorro el query para ver encuentra registros
       foreach ($pagos as $pago) {
           $count=1;
       }
-        // si la busquedad no arroja resultados
+        // si la busquedad no arroja resultados, saco el mensaje Flash y muestro todos los usuarios por defecto
        if($count==0){      
         $pagos = Pago::join('clientes', 'pagos.cliente_id', '=', 'clientes.id')
             ->join('servicios', 'pagos.servicio_id', '=', 'servicios.id')
@@ -36,7 +73,11 @@ class PagosController extends Controller
         return view('admin.pagos.index')->with('pagos',$pagos);
        }     
        
+       // si la busqeda arroja resultados, los envio a la vista
        return view('admin.pagos.index')->with('pagos',$pagos);
+      }
+      
+     
     }
 
     /**

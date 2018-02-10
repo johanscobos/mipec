@@ -40,35 +40,44 @@
            <th scope="col">Cédula</th>
            <th scope="col">Servicio</th>
            <th scope="col">Ref. Pago</th>
-            <th scope="col">Valor pago $</th>
+            <th scope="col">Valor Pago</th>
             <th scope="col">Descripción</th>
-            <th scope="col">Acción</th>
-                                               
+            <th scope="col">Acción</th>                                               
         </tr>
         </thead>
         <tbody>
-          @php
-          //dd($pagos);
-          @endphp
+          
         @foreach($pagos as $pago)
             <tr data-id="{{$pago->id}}">
                 <td>{{$pago->nombres.' '.$pago->apellidos}}</td>
                 <td>{{$pago->cedula}}</td>
                 <td>{{$pago->nombre}}</td>
                 <td>{{$pago->referenceCode}}</td>
-                <td>$ {{$pago->valor_pago}}</td>
+                <td>
+                   $
+                 @php
+                    //le doy formato de miles al valor pagado
+                    echo $vpago=number_format($pago->valor_pago);
+                 @endphp
+
+                </td>
                 <td>{{$pago->descripcion}}</td>
                 <td class="flex-crud">
-
-                    <div class="flex-crud_item">
+                   @php
+                    //capturo el usuario autenticado
+                    $user = Auth::user();                  
+                  @endphp
+                  
+                  {{-- ::::: Si el tipo rol del usuario autenticado es diferente de "cliente" (11), se le muestra la opción de edita el pago, de lo contrario no se mostrará ::::--}}
+                  @if($user->tipo_rol!=11)
+                      <div class="flex-crud_item">
                         <a href="{{route('pagos.edit',$pago->id)}}" class="btn btn-warning" title="Editar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     </div>
-                    <div class="flex-crud_item">
+                  @endif
+                 <div class="flex-crud_item">
                         <a href="{{route('pagos.show',$pago->id)}}" class="btn btn-primary" title="Detalles"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     </div>
                 </td>
-                
-                
             </tr>
         @endforeach
         </tbody>

@@ -100,8 +100,8 @@ Route::group(['prefix' =>'admin'], function (){
     Route::resource('clientes','ClientesController');
     Route::resource('empleados','empleadosController');
     Route::resource('administrador', 'adminController');
-
 });
+Route::get('/admin/servicios/detalles_servicioporpagar/{id}', 'serviciosController@show_serviciosporpagar')->name('detalles_servicioporpagar');
 
 
 Route::group(['prefix' =>'clientes'], function (){

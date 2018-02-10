@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Servicio;
 use App\Cliente;
 use Laracasts\Flash\Flash;
@@ -24,7 +25,7 @@ class ServiciosController extends Controller
       foreach ($servicios as $servicio) {
           $count=1;
       }
-        // si la busquedad no arroja resultados
+        // si el query no arroja resultados
        if($count==0){ 
         flash('No se encuentran registros asociados a los parámetros de busqueda.!!.')->success();
         return view('admin.servicios.index')->with('servicios',$servicios);
@@ -65,8 +66,6 @@ class ServiciosController extends Controller
 
         flash('El servicio se creó satisfactoriamente.!!.')->success();
         return redirect('/admin/servicios/create');
-
-
     }
 
     /**
@@ -77,7 +76,8 @@ class ServiciosController extends Controller
      */
     public function show($id)
     {
-        //
+       // 
+ 
     }
 
     /**
@@ -88,10 +88,8 @@ class ServiciosController extends Controller
      */
     public function edit($id)
     {
-
         $servicio = Servicio::find($id);
         return view('admin.servicios.edit')->with('servicio',$servicio);
-        //dd($servicio);
     }
 
     /**
@@ -125,6 +123,7 @@ class ServiciosController extends Controller
         return redirect()->route('servicios.index');
     }
 
+/*
     public function serviciosporpagarBueno(Request $request){
       
         $dato = $request->dato;
@@ -168,17 +167,26 @@ class ServiciosController extends Controller
          }
 
     }
-
+*/
 
     public function serviciosporpagar(Request $request){
       
          //$datos= Cliente::buscarpagos($request->get('dato'))->orderBy('id','ASC')->paginate(10);
 
-        $serviciosporpagar = Cliente::buscarpagospendientes($request->get('dato'))
+        //capturo el id del usuario  autenticado
+       $user = Auth::user();
+
+       //Evaluo si el usuario tiene el rol "cliente (11) para buscar solo los pagos asociados a este"
+       if($user->tipo_rol==11)
+       { 
+         $cliente = Cliente::where('user_id', $user->id)->first();
+
+         $serviciosporpagar = Cliente::buscarpagospendientes($request->get('dato'))
        ->join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
        ->join('servicios', 'cliente_servicio.servicio_id', '=', 'servicios.id')
        ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos','clientes.cedula','cliente_servicio.servicio_id','cliente_servicio.cliente_id','cliente_servicio.referenceCode','cliente_servicio.valor_pagar','cliente_servicio.estado_pago','servicios.id','servicios.nombre','servicios.descripcion')
-       ->where('cliente_servicio.estado_pago','=',0)
+       ->where('cliente_servicio.estado_pago','=',0)//Estado pago 0= Sin pagar
+       ->where('cliente_id', $cliente->id)
        ->get();
 
 
@@ -186,7 +194,32 @@ class ServiciosController extends Controller
       foreach ($serviciosporpagar as $sporpagar) {
           $count=1;
       }
-        // si la busquedad no arroja resultados, traiga todos lore resultados sin hacer ningún filtro y saqque el mensaje Flash
+        // si el query no arroja resultados, traiga todos lore resultados sin hacer ningún filtro y saque el mensaje Flash
+       if($count==0){
+        flash('Usted no tiene pagos pendientes !!')->success(); 
+        return view('admin.servicios.serviciosporpagar')->with('serviciosporpagar',$serviciosporpagar);
+       }  
+
+        //dd($serviciosporpagar);
+        return view('admin.servicios.serviciosporpagar')->with('serviciosporpagar',$serviciosporpagar);  
+        //dd("Soy el 11");
+
+       }
+       else{
+
+        $serviciosporpagar = Cliente::buscarpagospendientes($request->get('dato'))
+       ->join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
+       ->join('servicios', 'cliente_servicio.servicio_id', '=', 'servicios.id')
+       ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos','clientes.cedula','cliente_servicio.servicio_id','cliente_servicio.cliente_id','cliente_servicio.referenceCode','cliente_servicio.valor_pagar','cliente_servicio.estado_pago','servicios.id','servicios.nombre','servicios.descripcion')
+       ->where('cliente_servicio.estado_pago','=',0)//Estado pago 0= Sin pagar
+       ->get();
+
+
+        $count=0;
+      foreach ($serviciosporpagar as $sporpagar) {
+          $count=1;
+      }
+        // si el query no arroja resultados, traiga todos lore resultados sin hacer ningún filtro y saque el mensaje Flash
        if($count==0){
         $serviciosporpagar = Cliente::
        join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
@@ -201,10 +234,25 @@ class ServiciosController extends Controller
 
         //dd($serviciosporpagar);
         return view('admin.servicios.serviciosporpagar')->with('serviciosporpagar',$serviciosporpagar);       
-
+       }
     }
 
+    public function show_serviciosporpagar(Request $request, $id){
+        //dd("show servicios por pagar");        
+         //$servicio= Servicio::find($id);
+       
+       $servicioporpagar = Cliente::buscarpagospendientes($request->get('dato'))
+       ->join('cliente_servicio', 'cliente_servicio.cliente_id', '=', 'clientes.id')
+       ->join('servicios', 'cliente_servicio.servicio_id', '=', 'servicios.id')
+       ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos','clientes.cedula','cliente_servicio.servicio_id','cliente_servicio.cliente_id','cliente_servicio.referenceCode','cliente_servicio.valor_pagar','cliente_servicio.estado_pago','servicios.id','servicios.nombre','servicios.descripcion')
+       ->where('cliente_servicio.estado_pago','=',0)//Estado pago 0= Sin pagar
+       ->where('cliente_servicio.id','=',1)//Estado pago 0= Sin pagar
+       ->get();
 
+       dd($servicioporpagar);   
+
+        return view('admin.servicios.show')->with('servicio',$servicio);
+    }
 
 }
 
