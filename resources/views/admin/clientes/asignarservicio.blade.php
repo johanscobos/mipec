@@ -20,7 +20,7 @@
             <div>
                 <div class="form-group">
                     {!!Form::label('clientes', 'Nombre del Cliente');!!}<br>
-                    {!! Form::select('cliente_id',$clientes, null, ['placeholder' => 'Busque un cliente','class'=>'cll form-control']) !!}
+                    {!! Form::select('cliente_id',$clientes, null, ['placeholder' => 'Busque unn cliente','class'=>'cll form-control']) !!}
 
                 </div>
                 <div class="form-group">
