@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Events\TestEvent;
 
 
 Route::get('/', function () {
@@ -110,4 +110,17 @@ Route::group(['prefix' =>'clientes'], function (){
 
 });
 
+
+
+//-----------------chat------------------
+Route::get('/prueba2', function () {
+    return view('algo');
+});
+
+
+Route::get('event',function(){
+    event(new TestEvent('broadcast enviado'));
+
+});
+//-----------------------------------------
 
