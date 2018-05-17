@@ -93,10 +93,20 @@ class ClientesController extends Controller
         //:::::cargo los datos para generar la "signature", única para cada referencia creada
 
             //apikey es una constante
-            $apikey="K4mvTeqzoeATzM5F72DVP3O8VO";
+
+            //apikey verdadera:
+            //$apikey="K4mvTeqzoeATzM5F72DVP3O8VO";
+
+             //apikey de prueba
+            $apikey="4Vj8eK4rloUd272L48hsrarnUA";
 
             //merchantId es una constante
-            $merchantId="688911";
+            //merchandId de verdadera:
+            //$merchantId="688911";
+
+            //merchanid de prueba
+            $merchantId="508029";
+
             $amount=$request->valor_pagar;
 
             //moneda es una constante

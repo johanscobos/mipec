@@ -46,8 +46,6 @@ Route::get('/clientes/pagos/bajar_planilla/{id}', 'PagosController@descargar_pla
 
 
 
-
-
 Route::get('/clientes/pagos/ver_pagos/','PagosController@mispagos')->name('clientes.pagos.ver_pagos');
 
 //Route::get('/admin/clientes/descargar_planilla', 'PagosController@descargar_planilla')->name('clientes.descargar_planilla');
@@ -60,6 +58,11 @@ Route::get('/clientes/pagos/pagospendientes', 'ClientesController@pagospendiente
 
 //Esta es la ruta de confirmacion de pago con tarjeta de crédito y tiene la excepcion de proteccion de token CSRF en el archivo: Http/middleware/VeryCsrfToken.php
 Route::post('/clientes/pagos/confirmar_pago', 'PagosController@confirmar_pago')->name('confirmar_pago');
+
+
+/*Route::get('/clientes/pagos/confirmar_pago', function () {
+    return 'Hola mundo';
+});*/
 
 Route::get('/clientes/pagos/respuesta_pago/{txt_value}', 'PagosController@respuesta_pago');
 
@@ -113,7 +116,7 @@ Route::group(['prefix' =>'clientes'], function (){
 
 
 //-----------------chat------------------
-Route::get('/prueba2', function () {
+/*Route::get('/prueba2', function () {
     return view('algo');
 });
 
@@ -121,6 +124,10 @@ Route::get('/prueba2', function () {
 Route::get('event',function(){
     event(new TestEvent('broadcast enviado'));
 
-});
+});*/
+
+Route::get('/', 'ChatsController@index');
+Route::get('messages', 'ChatsController@fetchMessages');
+Route::post('messages', 'ChatsController@sendMessage');
 //-----------------------------------------
 

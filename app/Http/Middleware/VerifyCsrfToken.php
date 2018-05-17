@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+        'http://app.mipensionencolombia.com/clientes/pagos/confirmar_pago',
         'confirmar_pago',
+        '/clientes/pagos/confirmar_pago'
     ];
 }

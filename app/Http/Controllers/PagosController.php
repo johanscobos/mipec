@@ -234,27 +234,73 @@ class PagosController extends Controller
 
     public function confirmar_pago(Request $request){
 
+        //dd("hola");
         $state_pol = $request->input("state_pol");
         $reference_sale = $request->input("reference_sale");
         $response_message_pol = $request->input("response_message_pol");
         $response_code_pol = $request->input("response_code_pol");
+        $value = $request->input("value");
+        $description = $request->input("description");
+
+       /* $cliente=Cliente::find(2);
+        $cliente->telefono='3430604';
+        $cliente->save();*/
+
+        $aprobado=1;
+
+        //DB::table('cliente_servicio')->where([['referenceCode', '=', 'MIPEC52']])->update(['estado_pago' => $aprobado])
+
+       // dd("hola34");
 
         if($state_pol=='4')
         {
             $aprobado=1;
 
         //$cliente=Cliente::where('cedula', '100000000')->get();
-        $cliente=Cliente::find(2);
-        $cliente->telefono='3430699';
-        $cliente->save();
-        dd("ok");
+        //$cliente=Cliente::find(2);
+        //$cliente->telefono='3430607';
+        //$cliente->save();
+
+          //$clservicios = DB::table('cliente_servicio')->where([['referenceCode', '=', 'MIPEC52']])->update(['estado_pago' => $aprobado]);
+            /*$clservicios = DB::table('cliente_servicio')->where([['referenceCode', '=', 'MIPEC52']]);
+           $clservicios->estado_pago=$aprobado;
+           $clservicios->save();*/
+
+           DB::table('cliente_servicio')->where([['referenceCode', '=', $reference_sale]])->update(['estado_pago' => $aprobado]);
+
+            DB::table('cliente_servicio')->where([['referenceCode', '=', $reference_sale]])->update(['estado_servicio' => $aprobado]);
+
+            //SACO CLIENTE ID CON el reference code saco cliente id y servicio id
+
+           // $clservicios = DB::table('cliente_servicio')->where([['referenceCode', '=', $reference_sale]]);
+
+            $clservicios = DB::table('cliente_servicio')->where('referenceCode', $reference_sale)->first();
+            //$cliente = Cliente::where('user_id', $user_id)->first();
+            $cliente_id=$clservicios->cliente_id;
+            $servicio_id=$clservicios->servicio_id;
+
+            //asentar el pago:
+
+            $pago = new Pago();
+            $pago->valor_pago = $value;
+            $pago->descripcion = $description;
+            $pago->cliente_id = $cliente_id;
+            $pago->servicio_id = $servicio_id;
+            $pago->referenceCode = $reference_sale;
+            $pago->save();
+
+
+
+
+
+          //dd("ok 34");
         }
 
-        else{
+      /*  else{
             dd("diferente de la opción 4");
-        }
+        }*/
 
-        $aprobado=1;
+      //  $aprobado=1;
 
         //$cliente=Cliente::where('cedula', '100000000')->get();
        /* $cliente=Cliente::find(2);

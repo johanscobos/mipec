@@ -44,6 +44,7 @@ use App\Servicio;
                 @php               
                 $cliente = Pago::find($pago->id)->cliente;
                 echo $cliente->nombres.' '.$cliente->apellidos;
+
                 @endphp
             </td>           
         </tr>

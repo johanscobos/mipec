@@ -1,5 +1,7 @@
 @php
     use App\User;
+    use App\Cliente;
+    use App\Servicio;
 @endphp
 
 @extends('layouts.principal')
@@ -54,13 +56,46 @@
                 @php
                     //le doy formato de miles al valor pagado
                     echo $vpago=number_format($serviporpagar->valor_pagar);
+                    $referenceCode=$serviporpagar->referenceCode;
+                    $amount=$serviporpagar->valor_pagar;
+                    $signature=$serviporpagar->signature;
+
+                //traer la descripcion del servicio
+                 $idservicio=$serviporpagar->servicio_id;
+                $servicio = App\Servicio::where('id', $idservicio)->first();
+                $descripcion=$servicio->descripcion;
                  @endphp
               </td>
               <td class="flex-crud">
                    <div class="flex-crud_item">
                       <a href="{{route('detalles_servicioporpagar',$serviporpagar->id)}}" class="btn btn-primary" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    </div>                 
+                    </div>
               </td>
+
+                <td>
+                {!! Form::open(['url' => 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu', 'method' => 'post']) !!}
+
+
+                    {!! Form::hidden('merchantId','508029') ; !!}
+                    {!! Form::hidden('ApiKey','4Vj8eK4rloUd272L48hsrarnUA') ; !!}
+                    {!! Form::hidden('referenceCode',$referenceCode) ; !!}
+                    {!! Form::hidden('description',$descripcion) !!}
+                    {!! Form::hidden('amount',$amount) !!}
+                    {!! Form::hidden('tax','0'); !!}
+                    {!! Form::hidden('taxReturnBase','0') ; !!}
+                    {!! Form::hidden('accountId','512326') ; !!}
+                    {!! Form::hidden('currency','COP') !!}<!-- COL -->
+                    {!! Form::hidden('signature',$signature); !!}
+                    {!! Form::hidden('test','1') !!}
+                    {!! Form::hidden('buyerEmail','test@test.com') !!}
+                    {!! Form::hidden('responseUrl','') !!}
+                    {!! Form::hidden('confirmationUrl','http://app.mipensionencolombia.com/clientes/pagos/confirmar_pago') !!}
+
+                    {!! Form::submit('Pagar',['class' => 'btn btn-danger']); !!}
+
+                    {!! Form::close() !!}
+
+                </td>
             </tr>
         @endforeach
         </tbody>
